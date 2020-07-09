@@ -38,13 +38,12 @@ class _yanMenu extends State<YanMenu> {
                     color: Colors.black12,
                     size: 50,
                   ),
-                  Text("UTARID",
-                      style: TextStyle(color: Colors.black12, fontSize: 20)),
+                  Text("UTARID", style: TextStyle(color: Colors.black12, fontSize: 20)),
                 ],
               ),
             ),
             decoration: BoxDecoration(
-              color: Colors.tealAccent.shade100,
+              color: Colors.orangeAccent,
             ),
           ),
           ListTile(
@@ -62,8 +61,7 @@ class _yanMenu extends State<YanMenu> {
               builder: (context, AsyncSnapshot<Kategori> gelenKategori) {
                 if (gelenKategori.connectionState == ConnectionState.waiting) {
                   return Center(child: CircularProgressIndicator());
-                } else if (gelenKategori.connectionState ==
-                    ConnectionState.done) {
+                } else if (gelenKategori.connectionState == ConnectionState.done) {
                   return ExpansionTile(
                     leading: Icon(Icons.perm_device_information),
                     title: Text('Kategori'),
@@ -78,10 +76,8 @@ class _yanMenu extends State<YanMenu> {
                             itemBuilder: (context, index) {
                               return ListTile(
                                 title: Text(
-                                  gelenKategori
-                                      .data.data[index].blogCategoryName,
-                                  style: GoogleFonts.mada(
-                                      fontSize: 14, color: Colors.grey),
+                                  gelenKategori.data.data[index].blogCategoryName,
+                                  style: GoogleFonts.mada(fontSize: 14, color: Colors.grey),
                                 ),
                               );
                             }),

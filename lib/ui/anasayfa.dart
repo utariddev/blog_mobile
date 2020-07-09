@@ -5,7 +5,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:http/http.dart' as http;
-import 'package:utarid/models/article.dart';
+import 'package:utarid/models/articles.dart';
+
+import 'detay.dart';
 
 class Anasayfa extends StatefulWidget {
   @override
@@ -19,15 +21,16 @@ class _AnasayfaState extends State<Anasayfa> {
   void initState() {
     // TODO: implement initState
     super.initState();
+
 //    tumVeriler = [
 //      Veri(),
 //    ];
   }
 
   String url = "http://blogsrvr.herokuapp.com/rest/message/getArticles";
-  Article article;
+  Articles articles;
 
-  Future<Article> articleVerileriGetir() async {
+  Future<Articles> articleVerileriGetir() async {
     var response = await http.post(
       url,
       headers: <String, String>{
@@ -37,8 +40,8 @@ class _AnasayfaState extends State<Anasayfa> {
     );
     debugPrint(response.body);
     var decodedJson = json.decode(response.body);
-    article = Article.fromJson(decodedJson);
-    return article;
+    articles = Articles.fromJson(decodedJson);
+    return articles;
   }
 
   //ana yapinin body kismi
@@ -46,7 +49,7 @@ class _AnasayfaState extends State<Anasayfa> {
   Widget build(BuildContext context) {
     return FutureBuilder(
         future: articleVerileriGetir(),
-        builder: (context, AsyncSnapshot<Article> gelenEkrem) {
+        builder: (context, AsyncSnapshot<Articles> gelenEkrem) {
           if (gelenEkrem.connectionState == ConnectionState.waiting) {
             return Center(child: CircularProgressIndicator());
           } else if (gelenEkrem.connectionState == ConnectionState.done) {
@@ -58,11 +61,10 @@ class _AnasayfaState extends State<Anasayfa> {
                     padding: const EdgeInsets.all(8.0),
                     child: Material(
                       borderRadius: BorderRadius.circular(10),
-                      color: Colors.red.shade100,
+                      // color: Colors.red.shade100,
                       elevation: 6,
                       child: Container(
-                        margin:
-                            EdgeInsets.only(left: 10, right: 10, bottom: 40),
+                        margin: EdgeInsets.only(left: 10, right: 10, bottom: 40),
 //            height: 500,
 //            width: 500,
                         child: Column(
@@ -84,10 +86,10 @@ class _AnasayfaState extends State<Anasayfa> {
 //                                        fit: BoxFit.contain,
 //                                        child: Image(image:NetworkImage(gelenEkrem.data.data[index].articleImage)),
                                           child: Image.network(
-                                              'https://googleflutter.com/sample_image.jpg'),
+                                            'https://googleflutter.com/sample_image.jpg',
+                                          ),
                                           decoration: BoxDecoration(
-                                            borderRadius:
-                                                BorderRadius.circular(40),
+                                            borderRadius: BorderRadius.circular(40),
 //                                              image: FadeInImage(
 //                                                image:
 //                                                  'articleImage'),
@@ -96,13 +98,9 @@ class _AnasayfaState extends State<Anasayfa> {
                                         SizedBox(
                                           height: 8,
                                         ),
-                                        Text(
-                                            gelenEkrem
-                                                .data.data[index].authorName,
+                                        Text(gelenEkrem.data.data[index].authorName,
                                             style: GoogleFonts.mada(
-                                                color: Colors.black,
-                                                fontSize: 14,
-                                                fontWeight: FontWeight.w400)),
+                                                color: Colors.black, fontSize: 14, fontWeight: FontWeight.w400)),
                                       ],
                                     ),
                                   ),
@@ -110,43 +108,29 @@ class _AnasayfaState extends State<Anasayfa> {
                                 Expanded(
                                   flex: 3,
                                   child: Padding(
-                                    padding: const EdgeInsets.only(
-                                        top: 12,
-                                        right: 8,
-                                        left: 8,
-                                        bottom: 8.0),
+                                    padding: const EdgeInsets.only(top: 12, right: 8, left: 8, bottom: 8.0),
                                     child: Column(
 //                                  crossAxisAlignment: CrossAxisAlignment.stretch,
                                       children: <Widget>[
                                         Container(
-                                          color: Colors.red.shade200,
-                                          child: Text(
-                                              gelenEkrem.data.data[index]
-                                                  .articleTitle,
+                                          //  color: Colors.red.shade200,
+                                          child: Text(gelenEkrem.data.data[index].articleTitle,
                                               //  overflow: TextOverflow.visible,
                                               textAlign: TextAlign.center,
                                               //  maxLines: 5,
 //                                          textWidthBasis: TextWidthBasis.longestLine,
                                               style: GoogleFonts.mada(
-                                                  color: Colors.black,
-                                                  fontSize: 14,
-                                                  fontWeight: FontWeight.w800)),
+                                                  color: Colors.black, fontSize: 14, fontWeight: FontWeight.w800)),
                                         ),
                                         Divider(color: Colors.grey),
                                         SizedBox(
                                           height: 15,
                                         ),
                                         Padding(
-                                          padding:
-                                              const EdgeInsets.only(left: 150),
-                                          child: Text(
-                                              gelenEkrem
-                                                  .data.data[index].articleDate
-                                                  .toString(),
+                                          padding: const EdgeInsets.only(left: 150),
+                                          child: Text(gelenEkrem.data.data[index].articleDate.toString(),
                                               style: GoogleFonts.mada(
-                                                  color: Colors.black,
-                                                  fontSize: 14,
-                                                  fontWeight: FontWeight.w400)),
+                                                  color: Colors.black, fontSize: 14, fontWeight: FontWeight.w400)),
                                         ),
                                       ],
                                     ),
@@ -161,10 +145,20 @@ class _AnasayfaState extends State<Anasayfa> {
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: <Widget>[
                                 Expanded(
-                                  child: Image(
-                                      fit: BoxFit.fitWidth,
-                                      image: NetworkImage(gelenEkrem
-                                          .data.data[index].articleImage)),
+                                  child: InkWell(
+                                    onTap: () {
+                                      Navigator.of(context).push(MaterialPageRoute(
+                                          builder: (context) => Detay(articleId: gelenEkrem.data.data[index].id)));
+                                    },
+                                    child: Hero(
+                                      tag: gelenEkrem.data.data[index].articleImage,
+                                      child: Image(
+                                          fit: BoxFit.fitWidth,
+                                          image: NetworkImage(
+                                            gelenEkrem.data.data[index].articleImage,
+                                          )),
+                                    ),
+                                  ),
                                 ),
                               ],
                             ),
@@ -176,20 +170,12 @@ class _AnasayfaState extends State<Anasayfa> {
                               mainAxisAlignment: MainAxisAlignment.end,
                               children: <Widget>[
                                 SizedBox(width: 30),
-                                Text(
-                                    gelenEkrem
-                                        .data.data[index].blogCategoryName,
-                                    style: GoogleFonts.montserrat(
-                                        fontSize: 10,
-                                        color: Colors.brown.withOpacity(0.2))),
+                                Text(gelenEkrem.data.data[index].blogCategoryName,
+                                    style: GoogleFonts.montserrat(fontSize: 10, color: Colors.brown.withOpacity(0.2))),
                                 SizedBox(width: 30),
-                                Icon(Icons.library_books,
-                                    color: Colors.brown.withOpacity(0.2),
-                                    size: 15),
+                                Icon(Icons.library_books, color: Colors.brown.withOpacity(0.2), size: 15),
                                 Text(gelenEkrem.data.data[index].articleRead,
-                                    style: GoogleFonts.montserrat(
-                                        fontSize: 10,
-                                        color: Colors.brown.withOpacity(0.2))),
+                                    style: GoogleFonts.montserrat(fontSize: 10, color: Colors.brown.withOpacity(0.2))),
                               ],
                             ),
                           ],
@@ -236,10 +222,7 @@ class _AnasayfaState extends State<Anasayfa> {
                             height: 8,
                           ),
                           Text("Yazar Adi:",
-                              style: GoogleFonts.mada(
-                                  color: Colors.black,
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w400)),
+                              style: GoogleFonts.mada(color: Colors.black, fontSize: 14, fontWeight: FontWeight.w400)),
                         ],
                       ),
                     ),
@@ -248,10 +231,7 @@ class _AnasayfaState extends State<Anasayfa> {
                         Padding(
                           padding: const EdgeInsets.only(top: 10, left: 50),
                           child: Text("BASLIK",
-                              style: GoogleFonts.mada(
-                                  color: Colors.black,
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.w800)),
+                              style: GoogleFonts.mada(color: Colors.black, fontSize: 16, fontWeight: FontWeight.w800)),
                         ),
                         SizedBox(
                           height: 35,
@@ -259,10 +239,7 @@ class _AnasayfaState extends State<Anasayfa> {
                         Padding(
                           padding: const EdgeInsets.only(left: 150),
                           child: Text("Tarih:",
-                              style: GoogleFonts.mada(
-                                  color: Colors.black,
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w400)),
+                              style: GoogleFonts.mada(color: Colors.black, fontSize: 14, fontWeight: FontWeight.w400)),
                         ),
                       ],
                     ),
@@ -289,17 +266,10 @@ class _AnasayfaState extends State<Anasayfa> {
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: <Widget>[
                     SizedBox(width: 30),
-                    Text("Kategori",
-                        style: GoogleFonts.montserrat(
-                            fontSize: 10,
-                            color: Colors.brown.withOpacity(0.2))),
+                    Text("Kategori", style: GoogleFonts.montserrat(fontSize: 10, color: Colors.brown.withOpacity(0.2))),
                     SizedBox(width: 30),
-                    Icon(Icons.sms,
-                        color: Colors.brown.withOpacity(0.2), size: 25),
-                    Text("325",
-                        style: GoogleFonts.montserrat(
-                            fontSize: 10,
-                            color: Colors.brown.withOpacity(0.2))),
+                    Icon(Icons.sms, color: Colors.brown.withOpacity(0.2), size: 25),
+                    Text("325", style: GoogleFonts.montserrat(fontSize: 10, color: Colors.brown.withOpacity(0.2))),
                   ],
                 ),
               ],
@@ -339,10 +309,7 @@ class _AnasayfaState extends State<Anasayfa> {
                             height: 8,
                           ),
                           Text("Yazar Adi:",
-                              style: GoogleFonts.mada(
-                                  color: Colors.black,
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w400)),
+                              style: GoogleFonts.mada(color: Colors.black, fontSize: 14, fontWeight: FontWeight.w400)),
                         ],
                       ),
                     ),
@@ -351,10 +318,7 @@ class _AnasayfaState extends State<Anasayfa> {
                         Padding(
                           padding: const EdgeInsets.only(top: 10, left: 50),
                           child: Text("BASLIK",
-                              style: GoogleFonts.mada(
-                                  color: Colors.black,
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.w800)),
+                              style: GoogleFonts.mada(color: Colors.black, fontSize: 16, fontWeight: FontWeight.w800)),
                         ),
                         SizedBox(
                           height: 35,
@@ -362,10 +326,7 @@ class _AnasayfaState extends State<Anasayfa> {
                         Padding(
                           padding: const EdgeInsets.only(left: 150),
                           child: Text("Tarih:",
-                              style: GoogleFonts.mada(
-                                  color: Colors.black,
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w400)),
+                              style: GoogleFonts.mada(color: Colors.black, fontSize: 14, fontWeight: FontWeight.w400)),
                         ),
                       ],
                     ),
@@ -392,17 +353,10 @@ class _AnasayfaState extends State<Anasayfa> {
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: <Widget>[
                     SizedBox(width: 30),
-                    Text("Kategori",
-                        style: GoogleFonts.montserrat(
-                            fontSize: 10,
-                            color: Colors.brown.withOpacity(0.2))),
+                    Text("Kategori", style: GoogleFonts.montserrat(fontSize: 10, color: Colors.brown.withOpacity(0.2))),
                     SizedBox(width: 30),
-                    Icon(Icons.sms,
-                        color: Colors.brown.withOpacity(0.2), size: 25),
-                    Text("325",
-                        style: GoogleFonts.montserrat(
-                            fontSize: 10,
-                            color: Colors.brown.withOpacity(0.2))),
+                    Icon(Icons.sms, color: Colors.brown.withOpacity(0.2), size: 25),
+                    Text("325", style: GoogleFonts.montserrat(fontSize: 10, color: Colors.brown.withOpacity(0.2))),
                   ],
                 ),
               ],

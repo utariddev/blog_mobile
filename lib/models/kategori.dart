@@ -18,14 +18,14 @@ class Kategori {
   List<Datum> data;
 
   factory Kategori.fromJson(Map<String, dynamic> json) => Kategori(
-    result: Result.fromJson(json["result"]),
-    data: List<Datum>.from(json["data"].map((x) => Datum.fromJson(x))),
-  );
+        result: Result.fromJson(json["result"]),
+        data: List<Datum>.from(json["data"].map((x) => Datum.fromJson(x))),
+      );
 
   Map<String, dynamic> toJson() => {
-    "result": result.toJson(),
-    "data": List<dynamic>.from(data.map((x) => x.toJson())),
-  };
+        "result": result.toJson(),
+        "data": List<dynamic>.from(data.map((x) => x.toJson())),
+      };
 }
 
 class Datum {
@@ -42,18 +42,18 @@ class Datum {
   String blogCategoryImageId;
 
   factory Datum.fromJson(Map<String, dynamic> json) => Datum(
-    imagePath: json["image_path"],
-    blogCategoryName: json["blog_category_name"],
-    id: json["id"],
-    blogCategoryImageId: json["blog_category_image_id"],
-  );
+        imagePath: json["image_path"],
+        blogCategoryName: json["blog_category_name"],
+        id: json["id"],
+        blogCategoryImageId: json["blog_category_image_id"],
+      );
 
   Map<String, dynamic> toJson() => {
-    "image_path": imagePath,
-    "blog_category_name": blogCategoryName,
-    "id": id,
-    "blog_category_image_id": blogCategoryImageId,
-  };
+        "image_path": imagePath,
+        "blog_category_name": blogCategoryName,
+        "id": id,
+        "blog_category_image_id": blogCategoryImageId,
+      };
 }
 
 class Result {
@@ -66,12 +66,12 @@ class Result {
   String code;
 
   factory Result.fromJson(Map<String, dynamic> json) => Result(
-    desc: json["desc"],
-    code: json["code"],
-  );
+        desc: json["desc"],
+        code: json["code"],
+      );
 
   Map<String, dynamic> toJson() => {
-    "desc": desc,
-    "code": code,
-  };
+        "desc": desc,
+        "code": code,
+      };
 }

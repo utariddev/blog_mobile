@@ -2,10 +2,11 @@ import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 import 'package:utarid/ui/anasayfa.dart';
 import 'package:utarid/ui/detay.dart';
 import 'package:utarid/ui/yanmenu.dart';
-import 'package:http/http.dart' as http;
+
 import 'models/kategori.dart';
 
 void main() {
@@ -20,8 +21,8 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
           fontFamily: 'Genel',
           // canvasColor: Colors.lightBlue,  //todo:ekranin rengini ayarlar
-          primarySwatch: Colors.yellow,
-          accentColor: Colors.tealAccent),
+          primarySwatch: Colors.orange,
+          accentColor: Colors.orangeAccent),
       home: MyHomePage(),
       debugShowCheckedModeBanner: false,
     );
@@ -46,7 +47,6 @@ class MyHomePageState extends State<MyHomePage> {
   Kategori kategori; //pokedex
   Future<Kategori> futureKategori; //veri
 
-
   @override
   void initState() {
     // TODO: implement initState
@@ -54,11 +54,10 @@ class MyHomePageState extends State<MyHomePage> {
 
     futureKategori = kategoriVerileriGetir();
 
-    sayfaAna=Anasayfa();
-    sayfaYan=YanMenu(futureKategori);
-    sayfaDetay=Detay();
+    sayfaAna = Anasayfa();
+    sayfaYan = YanMenu(futureKategori);
+    sayfaDetay = Detay();
     tumSayfalar = [sayfaAna, sayfaYan, sayfaDetay];
-
   }
 
   Future<Kategori> kategoriVerileriGetir() async {
@@ -80,19 +79,16 @@ class MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer:
-      sayfaYan,
+      drawer: sayfaYan,
       appBar: AppBar(
         title: Text(
           "UTARID",
         ),
-
       ),
       body: sayfaAna,
 //      body: secilenMenuItem <= tumSayfalar.length - 1
 //          ? tumSayfalar[secilenMenuItem]
 //          : tumSayfalar[0],
-
     );
   }
 }
