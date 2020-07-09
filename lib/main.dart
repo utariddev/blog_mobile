@@ -1,8 +1,12 @@
+import 'dart:convert';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:utarid/ui/anasayfa.dart';
 import 'package:utarid/ui/detay.dart';
 import 'package:utarid/ui/yanmenu.dart';
+import 'package:http/http.dart' as http;
+import 'models/kategori.dart';
 
 void main() {
   runApp(MyApp());
@@ -37,15 +41,39 @@ class MyHomePageState extends State<MyHomePage> {
   Anasayfa sayfaAna;
   YanMenu sayfaYan;
   Detay sayfaDetay;
+  String url = "http://blogsrvr.herokuapp.com/rest/message/getCategories";
+
+  Kategori kategori; //pokedex
+  Future<Kategori> futureKategori; //veri
+
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
+
+    futureKategori = kategoriVerileriGetir();
+
     sayfaAna=Anasayfa();
-    sayfaYan=YanMenu();
+    sayfaYan=YanMenu(futureKategori);
     sayfaDetay=Detay();
     tumSayfalar = [sayfaAna, sayfaYan, sayfaDetay];
+
+  }
+
+  Future<Kategori> kategoriVerileriGetir() async {
+    debugPrint("kategoriVerileriGetir");
+    var response = await http.post(
+      url,
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+      body: jsonEncode(<String, String>{"": ""}),
+    );
+    debugPrint(response.body);
+    var decodedJson = json.decode(response.body);
+    kategori = Kategori.fromJson(decodedJson);
+    return kategori;
   }
 
   //asil yapinin home kismi
@@ -53,14 +81,14 @@ class MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       drawer:
-      YanMenu(),
+      sayfaYan,
       appBar: AppBar(
         title: Text(
           "UTARID",
         ),
 
       ),
-      body: Anasayfa(),
+      body: sayfaAna,
 //      body: secilenMenuItem <= tumSayfalar.length - 1
 //          ? tumSayfalar[secilenMenuItem]
 //          : tumSayfalar[0],
