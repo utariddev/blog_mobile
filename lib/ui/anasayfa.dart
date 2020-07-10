@@ -61,10 +61,10 @@ class _AnasayfaState extends State<Anasayfa> {
                     padding: const EdgeInsets.all(8.0),
                     child: Material(
                       borderRadius: BorderRadius.circular(10),
-                      // color: Colors.red.shade100,
+                      color: Colors.grey.shade100,
                       elevation: 6,
                       child: Container(
-                        margin: EdgeInsets.only(left: 10, right: 10, bottom: 40),
+                        margin: EdgeInsets.only(left: 10, right: 10, bottom: 30),
 //            height: 500,
 //            width: 500,
                         child: Column(
@@ -156,7 +156,7 @@ class _AnasayfaState extends State<Anasayfa> {
                                           fit: BoxFit.fitWidth,
                                           image: NetworkImage(
                                             gelenEkrem.data.data[index].articleImage,
-                                          )),
+                                          ),),
                                     ),
                                   ),
                                 ),
