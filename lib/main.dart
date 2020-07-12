@@ -69,7 +69,7 @@ class MyHomePageState extends State<MyHomePage> {
       },
       body: jsonEncode(<String, String>{"": ""}),
     );
-    debugPrint(response.body);
+//    debugPrint(response.body);
     var decodedJson = json.decode(response.body);
     kategori = Kategori.fromJson(decodedJson);
     return kategori;

@@ -26,7 +26,7 @@ class _DetayState extends State<Detay> {
       },
       body: jsonEncode(<String, String>{"articleID": widget.articleId}),
     );
-    debugPrint(response.body);
+//    debugPrint(response.body);
     var decodedJson = json.decode(response.body);
     article = Article.fromJson(decodedJson);
     return article;

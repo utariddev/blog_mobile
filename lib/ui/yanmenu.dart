@@ -3,8 +3,6 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:utarid/models/kategori.dart';
 import 'package:utarid/ui/kategori_article.dart';
 
-import 'detay.dart';
-
 class YanMenu extends StatefulWidget {
   final Future<Kategori> futureKategori;
 
@@ -51,17 +49,13 @@ class _yanMenu extends State<YanMenu> {
           ),
           ListTile(
             leading: Icon(Icons.home),
-            title: Text(
-              "Anasayfa",style: TextStyle(fontSize: 16)
-            ),
+            title: Text("Anasayfa", style: TextStyle(fontSize: 16)),
             trailing: Icon(Icons.arrow_forward),
             onTap: () {
               Navigator.pushNamed(context, "/");
             },
           ),
-
           Divider(),
-
           FutureBuilder(
               future: widget.futureKategori,
               builder: (context, AsyncSnapshot<Kategori> gelenKategori) {
@@ -70,23 +64,26 @@ class _yanMenu extends State<YanMenu> {
                 } else if (gelenKategori.connectionState == ConnectionState.done) {
                   return ExpansionTile(
                     leading: Icon(Icons.perm_device_information),
-                    title: Text('Kategori',style: TextStyle(fontSize: 16),),
+                    title: Text(
+                      'Kategori',
+                      style: TextStyle(fontSize: 16),
+                    ),
                     trailing: Icon(
                       Icons.arrow_drop_down,
                     ),
                     children: <Widget>[
                       Container(
-                        height: MediaQuery.of(context).size.height-400,
+                        height: MediaQuery.of(context).size.height - 400,
                         child: ListView.builder(
                             itemCount: gelenKategori.data.data.length,
                             itemBuilder: (context, index) {
                               return ListTile(
                                 title: InkWell(
-                                      onTap: () {
-
-                                        Navigator.of(context).push(MaterialPageRoute(
-                                            builder: (context) => KategoriArticle(kategoriarticleId: gelenKategori.data.data[index].blogCategoryName)));
-                                      },
+                                  onTap: () {
+                                    Navigator.of(context).push(MaterialPageRoute(
+                                        builder: (context) => KategoriArticle(
+                                            kategoriarticleId: gelenKategori.data.data[index].blogCategoryName)));
+                                  },
                                   child: Text(
                                     gelenKategori.data.data[index].blogCategoryName,
                                     style: GoogleFonts.mada(fontSize: 14, color: Colors.grey),
@@ -101,20 +98,15 @@ class _yanMenu extends State<YanMenu> {
                   return Text("vbghnn");
                 }
               }),
-
           Divider(),
-
           ListTile(
             leading: Icon(Icons.phone),
-            title: Text(
-                "Iletisim",style: TextStyle(fontSize: 16)
-            ),
+            title: Text("Iletisim", style: TextStyle(fontSize: 16)),
             onTap: () {
 //              Navigator.pushNamed(context, "/");
             },
           ),
-Divider(),
-
+          Divider(),
         ],
       ),
     );
