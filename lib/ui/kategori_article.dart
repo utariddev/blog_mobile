@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:http/http.dart' as http;
 import 'package:utarid/models/categori_articles.dart';
+import 'package:utarid/ui/detay.dart';
 
 class KategoriArticle extends StatefulWidget {
   var kategoriarticleId;
@@ -52,8 +53,13 @@ class _KategoriArticleState extends State<KategoriArticle> {
                     itemBuilder: (context, index) {
 //                          return Column(
 //                            children: <Widget>[
-                        return  Padding(
-                          padding: const EdgeInsets.all(8.0),
+                      return Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: InkWell(
+                          onTap: () {
+                            Navigator.of(context).push(MaterialPageRoute(
+                                builder: (context) => Detay(articleId: gelenKategoriArticle.data.data[index].id)));
+                          },
                           child: Material(
                               borderRadius: BorderRadius.circular(10),
                               elevation: 5,
