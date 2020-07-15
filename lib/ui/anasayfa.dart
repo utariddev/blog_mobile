@@ -121,7 +121,7 @@ class _AnasayfaState extends State<Anasayfa> {
                                     height: 8,
                                   ),
                                   Text(articles[index]['author_name'],
-                                      style: GoogleFonts.mada(
+                                      style: GoogleFonts.raleway(
                                           color: Colors.black, fontSize: 14, fontWeight: FontWeight.w400)),
                                 ],
                               ),
@@ -137,7 +137,7 @@ class _AnasayfaState extends State<Anasayfa> {
                                     //  color: Colors.red.shade200,
                                     child: Text(articles[index]['article_title'],
                                         textAlign: TextAlign.center,
-                                        style: GoogleFonts.mada(
+                                        style: GoogleFonts.raleway(
                                             color: Colors.black, fontSize: 14, fontWeight: FontWeight.w800)),
                                   ),
                                   Divider(color: Colors.grey),
@@ -147,7 +147,7 @@ class _AnasayfaState extends State<Anasayfa> {
                                   Padding(
                                     padding: const EdgeInsets.only(left: 150),
                                     child: Text(articles[index]['article_date'],
-                                        style: GoogleFonts.mada(
+                                        style: GoogleFonts.raleway(
                                             color: Colors.black, fontSize: 14, fontWeight: FontWeight.w400)),
                                   ),
                                 ],
@@ -184,13 +184,11 @@ class _AnasayfaState extends State<Anasayfa> {
                         children: <Widget>[
                           SizedBox(width: 30),
                           Text(articles[index]['blog_category_name'],
-                              style:
-                              GoogleFonts.montserrat(fontSize: 10, color: Colors.brown.withOpacity(0.2))),
+                              style: GoogleFonts.raleway(fontSize: 10, color: Colors.brown.withOpacity(0.2))),
                           SizedBox(width: 30),
                           Icon(Icons.library_books, color: Colors.brown.withOpacity(0.2), size: 15),
                           Text(articles[index]['article_read'],
-                              style:
-                              GoogleFonts.montserrat(fontSize: 10, color: Colors.brown.withOpacity(0.2))),
+                              style: GoogleFonts.raleway(fontSize: 10, color: Colors.brown.withOpacity(0.2))),
                         ],
                       ),
                     ],
@@ -205,4 +203,3 @@ class _AnasayfaState extends State<Anasayfa> {
     );
   }
 }
-

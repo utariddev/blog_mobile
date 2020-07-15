@@ -94,7 +94,7 @@ class _KategoriArticleState extends State<KategoriArticle> {
                                             child: Text(
                                               gelenKategoriArticle.data.data[index].articleTitle,
                                               textAlign: TextAlign.center,
-                                              style: GoogleFonts.mada(
+                                              style: GoogleFonts.raleway(
                                                   color: Colors.black, fontSize: 14, fontWeight: FontWeight.w800),
                                             ),
                                           ),
@@ -114,7 +114,7 @@ class _KategoriArticleState extends State<KategoriArticle> {
                                                   Text(
                                                       /*gelenKategoriArticle.data.data[index].articleDate.toString(),*/
                                                       "20 Mayis 2020",
-                                                      style: GoogleFonts.mada(
+                                                      style: GoogleFonts.raleway(
                                                           color: Colors.black,
                                                           fontSize: 10,
                                                           fontWeight: FontWeight.w400)),
@@ -129,7 +129,7 @@ class _KategoriArticleState extends State<KategoriArticle> {
                                                   Column(
                                                     children: <Widget>[
                                                       Text(gelenKategoriArticle.data.data[index].authorName,
-                                                          style: GoogleFonts.mada(
+                                                          style: GoogleFonts.raleway(
                                                               color: Colors.black,
                                                               fontSize: 10,
                                                               fontWeight: FontWeight.w400)),

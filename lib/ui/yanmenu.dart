@@ -86,7 +86,7 @@ class _yanMenu extends State<YanMenu> {
                                   },
                                   child: Text(
                                     gelenKategori.data.data[index].blogCategoryName,
-                                    style: GoogleFonts.mada(fontSize: 14, color: Colors.grey),
+                                    style: GoogleFonts.raleway(fontSize: 14, color: Colors.grey),
                                   ),
                                 ),
                               );
