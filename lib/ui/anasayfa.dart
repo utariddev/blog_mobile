@@ -43,7 +43,10 @@ class _AnasayfaState extends State<Anasayfa> {
       setState(() {
         isLoading = true;
       });
-      final response = await dio.post(url, data: jsonEncode(<String, String>{"indicator": indicator.toString()}),);
+      final response = await dio.post(
+        url,
+        data: jsonEncode(<String, String>{"indicator": indicator.toString()}),
+      );
       List tList = new List();
       for (int i = 0; i < response.data['data'].length; i++) {
         tList.add(response.data['data'][i]);
@@ -88,8 +91,8 @@ class _AnasayfaState extends State<Anasayfa> {
             padding: const EdgeInsets.all(8.0),
             child: InkWell(
               onTap: () {
-                Navigator.of(context).push(
-                    MaterialPageRoute(builder: (context) => Detay(articleId: articles[index]['id'])));
+                Navigator.of(context)
+                    .push(MaterialPageRoute(builder: (context) => Detay(articleId: articles[index]['id'])));
               },
               child: Material(
                 borderRadius: BorderRadius.circular(10),

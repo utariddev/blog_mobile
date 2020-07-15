@@ -1,8 +1,8 @@
 import 'dart:convert';
 
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:http/http.dart' as http;
 import 'package:utarid/models/categori_articles.dart';
 import 'package:utarid/ui/detay.dart';
 
@@ -18,17 +18,36 @@ class KategoriArticle extends StatefulWidget {
 class _KategoriArticleState extends State<KategoriArticle> {
   String url = "http://blogsrvr.herokuapp.com/rest/message/getCategoryArticles";
   Kategoriarticle kategoriArticle;
+  final dio = new Dio();
+
+  @override
+  void initState() {
+//    KategoriArticleVerileriGetir2();
+  }
+
+//  Future<Kategoriarticle> KategoriArticleVerileriGetir() async {
+//    var response = await http.post(
+//      url,
+//      headers: <String, String>{
+//        'Content-Type': 'application/json; charset=UTF-8',
+//      },
+//      body: jsonEncode(<String, String>{"categoryName": widget.kategoriarticleId}),
+//    );
+////    debugPrint(response.body);
+//    var decodedJson = json.decode(response.body);
+//    kategoriArticle = Kategoriarticle.fromJson(decodedJson);
+//    return kategoriArticle;
+//  }
 
   Future<Kategoriarticle> KategoriArticleVerileriGetir() async {
-    var response = await http.post(
+    debugPrint("KategoriArticleVerileriGetir2");
+    final response = await dio.post(
       url,
-      headers: <String, String>{
-        'Content-Type': 'application/json; charset=UTF-8',
-      },
-      body: jsonEncode(<String, String>{"categoryName": widget.kategoriarticleId}),
+      data: jsonEncode(<String, String>{"categoryName": widget.kategoriarticleId}),
     );
-//    debugPrint(response.body);
-    var decodedJson = json.decode(response.body);
+    debugPrint("KategoriArticleVerileriGetir2 - 1 : " + response.toString());
+//    debugPrint("KategoriArticleVerileriGetir2 - 2 : " + response.data.toString());
+    var decodedJson = json.decode(response.toString());
     kategoriArticle = Kategoriarticle.fromJson(decodedJson);
     return kategoriArticle;
   }
@@ -47,6 +66,7 @@ class _KategoriArticleState extends State<KategoriArticle> {
               if (gelenKategoriArticle.connectionState == ConnectionState.waiting) {
                 return Center(child: CircularProgressIndicator());
               } else if (gelenKategoriArticle.connectionState == ConnectionState.done) {
+                debugPrint("articleVerileriGetir gelenKategoriArticle : " + gelenKategoriArticle.toString());
                 return ListView.builder(
 //                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 1),
                     itemCount: gelenKategoriArticle.data.data.length,

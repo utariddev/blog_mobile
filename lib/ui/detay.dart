@@ -43,9 +43,9 @@ class _DetayState extends State<Detay> {
         child: Hero(
           tag: widget.articleId,
           child: Material(
-            borderRadius: BorderRadius.circular(16),
             // color: Colors.red.shade100,
             elevation: 6,
+            borderRadius: BorderRadius.circular(16),
             child: Padding(
               padding: const EdgeInsets.all(8.0),
               child: FutureBuilder(
