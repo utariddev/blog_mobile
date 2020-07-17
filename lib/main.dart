@@ -1,8 +1,8 @@
 import 'dart:convert';
 
+import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
 import 'package:utarid/ui/anasayfa.dart';
 import 'package:utarid/ui/detay.dart';
 import 'package:utarid/ui/yanmenu.dart';
@@ -43,7 +43,7 @@ class MyHomePageState extends State<MyHomePage> {
   YanMenu sayfaYan;
   Detay sayfaDetay;
   String url = "http://blogsrvr.herokuapp.com/rest/message/getCategories";
-
+  final dio = new Dio();
   Kategori kategori; //pokedex
   Future<Kategori> futureKategori; //veri
 
@@ -60,17 +60,30 @@ class MyHomePageState extends State<MyHomePage> {
     tumSayfalar = [sayfaAna, sayfaYan, sayfaDetay];
   }
 
+//  Future<Kategori> kategoriVerileriGetir() async {
+//    debugPrint("kategoriVerileriGetir");
+//    var response = await http.post(
+//      url,
+//      headers: <String, String>{
+//        'Content-Type': 'application/json; charset=UTF-8',
+//      },
+//      body: jsonEncode(<String, String>{"": ""}),
+//    );
+////    debugPrint(response.body);
+//    var decodedJson = json.decode(response.body);
+//    kategori = Kategori.fromJson(decodedJson);
+//    return kategori;
+//  }
+
   Future<Kategori> kategoriVerileriGetir() async {
-    debugPrint("kategoriVerileriGetir");
-    var response = await http.post(
+    //  debugPrint("KategoriArticleVerileriGetir2");
+    final response = await dio.post(
       url,
-      headers: <String, String>{
-        'Content-Type': 'application/json; charset=UTF-8',
-      },
-      body: jsonEncode(<String, String>{"": ""}),
+      data: jsonEncode(<String, String>{"": ""}),
     );
-//    debugPrint(response.body);
-    var decodedJson = json.decode(response.body);
+//    debugPrint("KategoriVerileriGetir2 - 1 : " + response.toString());
+    debugPrint("KategoriArticleVerileriGetir2 - 2 : " + response.toString());
+    var decodedJson = json.decode(response.toString());
     kategori = Kategori.fromJson(decodedJson);
     return kategori;
   }
