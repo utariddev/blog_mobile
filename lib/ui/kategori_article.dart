@@ -86,7 +86,7 @@ class _KategoriArticleState extends State<KategoriArticle> {
                           child: Material(
                             borderRadius: BorderRadius.circular(10),
                             elevation: 5,
-                            color: Colors.grey.shade200,
+                            color: Colors.grey.shade50,
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: <Widget>[
@@ -167,10 +167,14 @@ class _KategoriArticleState extends State<KategoriArticle> {
                                                       Container(
                                                         height: 50,
                                                         width: 50,
-                                                        child: Image(
-                                                          //  fit: BoxFit.contain,
-                                                          image: NetworkImage(
-                                                              'https://googleflutter.com/sample_image.jpg'),
+                                                        decoration: BoxDecoration(
+                                                          shape: BoxShape.circle,
+                                                          image: DecorationImage(
+                                                            fit: BoxFit.fill,
+                                                            image: NetworkImage(
+                                                              'https://googleflutter.com/sample_image.jpg',
+                                                            ),
+                                                          ),
                                                         ),
                                                       ),
                                                     ],

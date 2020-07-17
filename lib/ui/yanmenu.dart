@@ -47,14 +47,14 @@ class _YanMenu extends State<YanMenu> {
               color: Colors.orangeAccent,
             ),
           ),
-          ListTile(
-            leading: Icon(Icons.home),
-            title: Text("Anasayfa", style: TextStyle(fontSize: 16)),
-            trailing: Icon(Icons.arrow_forward),
-            onTap: () {
-              Navigator.pushNamed(context, "/");
-            },
-          ),
+//          ListTile(
+//            leading: Icon(Icons.home),
+//            title: Text("Anasayfa", style: TextStyle(fontSize: 16)),
+//            trailing: Icon(Icons.arrow_forward),
+//            onTap: () {
+//              Navigator.pushNamed(context, "/");
+//            },
+//          ),
           Divider(),
           FutureBuilder(
               future: widget.futureKategori,

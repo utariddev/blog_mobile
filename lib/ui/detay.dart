@@ -132,17 +132,19 @@ class _DetayState extends State<Detay> {
                                       width: 20,
                                     ),
                                     Column(
-                                      crossAxisAlignment: CrossAxisAlignment.center,
+                                      crossAxisAlignment: CrossAxisAlignment.start,
                                       children: <Widget>[
-                                        Row(
-                                          //  mainAxisAlignment: MainAxisAlignment.end,
-                                          children: <Widget>[
-                                            Text(
-                                                DateFormat.yMMMMd('tr_TR')
-                                                    .format(gelenArticle.data.data[0].articleDate),
-                                                style: GoogleFonts.raleway(
-                                                    color: Colors.black, fontSize: 10, fontWeight: FontWeight.w400)),
-                                          ],
+                                        Padding(
+                                          padding: const EdgeInsets.only(left:60),
+                                          child: Row(
+                                            children: <Widget>[
+                                              Text(
+                                                  DateFormat.yMMMMd('tr_TR')
+                                                      .format(gelenArticle.data.data[0].articleDate),
+                                                  style: GoogleFonts.raleway(
+                                                      color: Colors.black, fontSize: 10, fontWeight: FontWeight.w400)),
+                                            ],
+                                          ),
                                         ),
                                         SizedBox(
                                           height: 10,
@@ -167,9 +169,14 @@ class _DetayState extends State<Detay> {
                                                 Container(
                                                   height: 50,
                                                   width: 50,
-                                                  child: Image(
-                                                    fit: BoxFit.cover,
-                                                    image: NetworkImage('https://googleflutter.com/sample_image.jpg'),
+                                                  decoration: BoxDecoration(
+                                                    shape: BoxShape.circle,
+                                                    image: DecorationImage(
+                                                      fit: BoxFit.fill,
+                                                      image: NetworkImage(
+                                                        'https://googleflutter.com/sample_image.jpg',
+                                                      ),
+                                                    ),
                                                   ),
                                                 ),
                                               ],
