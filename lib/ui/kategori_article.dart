@@ -3,6 +3,8 @@ import 'dart:convert';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:intl/date_symbol_data_local.dart';
+import 'package:intl/intl.dart';
 import 'package:utarid/models/categori_articles.dart';
 import 'package:utarid/ui/detay.dart';
 
@@ -54,6 +56,7 @@ class _KategoriArticleState extends State<KategoriArticle> {
 
   @override
   Widget build(BuildContext context) {
+    initializeDateFormatting('tr');
     return Scaffold(
       appBar: AppBar(
         title: Text("Utarid"),
@@ -132,8 +135,9 @@ class _KategoriArticleState extends State<KategoriArticle> {
                                                 mainAxisAlignment: MainAxisAlignment.end,
                                                 children: <Widget>[
                                                   Text(
+                                                      DateFormat.yMMMMd('tr_TR')
+                                                          .format(gelenKategoriArticle.data.data[index].articleDate),
                                                       /*gelenKategoriArticle.data.data[index].articleDate.toString(),*/
-                                                      "20 Mayis 2020",
                                                       style: GoogleFonts.raleway(
                                                           color: Colors.black,
                                                           fontSize: 10,

@@ -5,6 +5,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:intl/date_symbol_data_local.dart';
+import 'package:intl/intl.dart';
 
 import 'detay.dart';
 
@@ -80,6 +82,7 @@ class _AnasayfaState extends State<Anasayfa> {
   }
 
   Widget _buildList() {
+    initializeDateFormatting('tr');
     return ListView.builder(
       itemCount: articles.length + 1, // Add one more item for progress indicator
       padding: EdgeInsets.symmetric(vertical: 8.0),
@@ -149,9 +152,11 @@ class _AnasayfaState extends State<Anasayfa> {
                                   ),
                                   Padding(
                                     padding: const EdgeInsets.only(left: 150),
-                                    child: Text(articles[index]['article_date'],
+                                    child: Text(
+                                        DateFormat.yMMMMd('tr_TR')
+                                            .format(DateTime.parse(articles[index]['article_date'])),
                                         style: GoogleFonts.raleway(
-                                            color: Colors.black, fontSize: 14, fontWeight: FontWeight.w400)),
+                                            color: Colors.black, fontSize: 10, fontWeight: FontWeight.w400)),
                                   ),
                                 ],
                               ),

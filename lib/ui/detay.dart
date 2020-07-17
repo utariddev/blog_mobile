@@ -3,6 +3,8 @@ import 'dart:convert';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:intl/date_symbol_data_local.dart';
+import 'package:intl/intl.dart';
 import 'package:utarid/models/article.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
@@ -71,12 +73,12 @@ class _DetayState extends State<Detay> {
 </body>
 </html>
     """;
-    _controller
-        .loadUrl(Uri.dataFromString(a, mimeType: 'text/html', encoding: Encoding.getByName('utf-8')).toString());
+    _controller.loadUrl(Uri.dataFromString(a, mimeType: 'text/html', encoding: Encoding.getByName('utf-8')).toString());
   }
 
   @override
   Widget build(BuildContext context) {
+    initializeDateFormatting('tr');
     return Scaffold(
       appBar: AppBar(
         title: Text("Utarid"),
@@ -101,6 +103,7 @@ class _DetayState extends State<Detay> {
                         return Center(child: CircularProgressIndicator());
                       } else if (gelenArticle.connectionState == ConnectionState.done) {
 //              return Text(gelenArticle.data.data.length.toString());
+
                         return Column(
 //                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: <Widget>[
@@ -134,7 +137,9 @@ class _DetayState extends State<Detay> {
                                         Row(
                                           //  mainAxisAlignment: MainAxisAlignment.end,
                                           children: <Widget>[
-                                            Text(gelenArticle.data.data[0].articleDate.toString(),
+                                            Text(
+                                                DateFormat.yMMMMd('tr_TR')
+                                                    .format(gelenArticle.data.data[0].articleDate),
                                                 style: GoogleFonts.raleway(
                                                     color: Colors.black, fontSize: 10, fontWeight: FontWeight.w400)),
                                           ],
