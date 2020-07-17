@@ -6,15 +6,15 @@ import 'package:utarid/ui/kategori_article.dart';
 class YanMenu extends StatefulWidget {
   final Future<Kategori> futureKategori;
 
-  const YanMenu(this.futureKategori);
+  YanMenu(this.futureKategori);
 
   @override
-  State<StatefulWidget> createState() => _yanMenu();
+  State<StatefulWidget> createState() => _YanMenu();
 }
 
-class _yanMenu extends State<YanMenu> {
-//  String url = "http://blogsrvr.herokuapp.com/rest/message/getCategories";
-//  Kategori kategori; //pokedex
+class _YanMenu extends State<YanMenu> {
+  String url = "http://blogsrvr.herokuapp.com/rest/message/getCategories";
+  Kategori kategori; //pokedex
 //  Future<Kategori> futureKategori; //veri
 
   @override
