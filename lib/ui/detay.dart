@@ -135,7 +135,7 @@ class _DetayState extends State<Detay> {
                                       crossAxisAlignment: CrossAxisAlignment.start,
                                       children: <Widget>[
                                         Padding(
-                                          padding: const EdgeInsets.only(left:60),
+                                          padding: const EdgeInsets.only(left: 60),
                                           child: Row(
                                             children: <Widget>[
                                               Text(

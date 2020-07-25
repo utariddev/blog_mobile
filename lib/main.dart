@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:utarid/constant.dart';
 import 'package:utarid/ui/anasayfa.dart';
 import 'package:utarid/ui/detay.dart';
 import 'package:utarid/ui/yanmenu.dart';
@@ -42,7 +43,7 @@ class MyHomePageState extends State<MyHomePage> {
   Anasayfa sayfaAna;
   YanMenu sayfaYan;
   Detay sayfaDetay;
-  String url = "http://blogsrvr.herokuapp.com/rest/message/getCategories";
+
   final dio = new Dio();
   Kategori kategori; //pokedex
   Future<Kategori> futureKategori; //veri
@@ -60,29 +61,12 @@ class MyHomePageState extends State<MyHomePage> {
     tumSayfalar = [sayfaAna, sayfaYan, sayfaDetay];
   }
 
-//  Future<Kategori> kategoriVerileriGetir() async {
-//    debugPrint("kategoriVerileriGetir");
-//    var response = await http.post(
-//      url,
-//      headers: <String, String>{
-//        'Content-Type': 'application/json; charset=UTF-8',
-//      },
-//      body: jsonEncode(<String, String>{"": ""}),
-//    );
-////    debugPrint(response.body);
-//    var decodedJson = json.decode(response.body);
-//    kategori = Kategori.fromJson(decodedJson);
-//    return kategori;
-//  }
-
   Future<Kategori> kategoriVerileriGetir() async {
-    //  debugPrint("KategoriArticleVerileriGetir2");
     final response = await dio.post(
-      url,
+      Constant.URL_GET_CATEGORIES,
       data: jsonEncode(<String, String>{"": ""}),
     );
-//    debugPrint("KategoriVerileriGetir2 - 1 : " + response.toString());
-    debugPrint("KategoriArticleVerileriGetir2 - 2 : " + response.toString());
+//    debugPrint("KategoriArticleVerileriGetir2 - 2 : " + response.toString());
     var decodedJson = json.decode(response.toString());
     kategori = Kategori.fromJson(decodedJson);
     return kategori;
@@ -94,8 +78,32 @@ class MyHomePageState extends State<MyHomePage> {
     return Scaffold(
       drawer: sayfaYan,
       appBar: AppBar(
-        title: Text(
-          "UTARID",
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: <Widget>[
+            Expanded(
+              flex: 3,
+              child: Text(
+                "UTARID",
+              ),
+            ),
+            SizedBox(width: 70),
+            Expanded(
+              flex: 1,
+              child: Container(
+                width: 150,
+                height: 50,
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                    fit: BoxFit.contain,
+                    image: NetworkImage(
+                      'https://i.ibb.co/Yc9vnRk/logo.png',
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ],
         ),
       ),
       body: sayfaAna,

@@ -1,5 +1,8 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:utarid/models/kategori.dart';
 import 'package:utarid/ui/kategori_article.dart';
 
@@ -30,32 +33,17 @@ class _YanMenu extends State<YanMenu> {
       child: ListView(
         children: <Widget>[
           DrawerHeader(
-            child: Align(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  Icon(
-                    Icons.computer,
-                    color: Colors.black12,
-                    size: 50,
-                  ),
-                  Text("UTARID", style: TextStyle(color: Colors.black12, fontSize: 20)),
-                ],
-              ),
-            ),
             decoration: BoxDecoration(
-              color: Colors.orangeAccent,
+              //  color: Colors.orange,
+              image: DecorationImage(
+                fit: BoxFit.contain,
+                image: NetworkImage(
+                  'https://i.ibb.co/Yc9vnRk/logo.png',
+                ),
+              ),
+              //  color: Colors.orangeAccent,
             ),
           ),
-//          ListTile(
-//            leading: Icon(Icons.home),
-//            title: Text("Anasayfa", style: TextStyle(fontSize: 16)),
-//            trailing: Icon(Icons.arrow_forward),
-//            onTap: () {
-//              Navigator.pushNamed(context, "/");
-//            },
-//          ),
-          Divider(),
           FutureBuilder(
               future: widget.futureKategori,
               builder: (context, AsyncSnapshot<Kategori> gelenKategori) {
@@ -63,16 +51,21 @@ class _YanMenu extends State<YanMenu> {
                   return Center(child: CircularProgressIndicator());
                 } else if (gelenKategori.connectionState == ConnectionState.done) {
                   return ExpansionTile(
-                    leading: Icon(Icons.perm_device_information),
+                    leading: Icon(
+                      Icons.perm_device_information,
+                      color: Colors.orange,
+                    ),
                     title: Text(
                       'Kategori',
-                      style: TextStyle(fontSize: 16),
+                      style: TextStyle(fontSize: 16, color: Colors.orange),
                     ),
                     trailing: Icon(
                       Icons.arrow_drop_down,
+                      color: Colors.orange,
                     ),
                     children: <Widget>[
                       Container(
+                        //  color: Colors.amberAccent.shade100,
                         height: MediaQuery.of(context).size.height - 400,
                         child: ListView.builder(
                             itemCount: gelenKategori.data.data.length,
@@ -100,15 +93,38 @@ class _YanMenu extends State<YanMenu> {
               }),
           Divider(),
           ListTile(
-            leading: Icon(Icons.phone),
-            title: Text("Iletisim", style: TextStyle(fontSize: 16)),
+            leading: Icon(
+              Icons.phone,
+              color: Colors.orange,
+            ),
+            title: Text("Iletisim", style: TextStyle(fontSize: 16, color: Colors.orange)),
             onTap: () {
 //              Navigator.pushNamed(context, "/");
             },
           ),
           Divider(),
+          Row(
+            //  mainAxisSize: MainAxisSize.min,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              FlatButton(
+                onPressed: _launchURL,
+                child: Text("Copyright © 2020 - Polar Vectors",
+                    style: GoogleFonts.raleway(fontSize: 12, color: Colors.brown.withOpacity(0.3))),
+              ),
+            ],
+          ),
         ],
       ),
     );
+  }
+
+  _launchURL() async {
+    const url = 'https://polarvectors.com';
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
+    }
   }
 }

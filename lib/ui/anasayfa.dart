@@ -7,7 +7,6 @@ import 'package:flutter/widgets.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart';
-
 import 'detay.dart';
 
 class Anasayfa extends StatefulWidget {
@@ -114,13 +113,14 @@ class _AnasayfaState extends State<Anasayfa> {
                               child: Column(
                                 children: <Widget>[
                                   Container(
-                                   height: 60,
+                                    height: 60,
                                     width: 60,
                                     decoration: BoxDecoration(
                                       shape: BoxShape.circle,
                                       image: DecorationImage(
                                         fit: BoxFit.fill,
                                         image: NetworkImage(
+//                                          articles[index]['author_name'],
                                           'https://googleflutter.com/sample_image.jpg',
                                         ),
                                       ),
@@ -148,14 +148,17 @@ class _AnasayfaState extends State<Anasayfa> {
                                     child: Text(articles[index]['article_title'],
                                         textAlign: TextAlign.center,
                                         style: GoogleFonts.raleway(
-                                            color: Colors.black, fontSize: 14, fontWeight: FontWeight.w800,)),
+                                          color: Colors.black,
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.w800,
+                                        )),
                                   ),
-                              //    Divider(color: Colors.grey),
+                                  //    Divider(color: Colors.grey),
                                   SizedBox(
                                     height: 15,
                                   ),
                                   Padding(
-                                    padding: const EdgeInsets.only(left: 200),
+                                    padding: const EdgeInsets.only(left: 180),
                                     child: Text(
                                         DateFormat.yMMMMd('tr_TR')
                                             .format(DateTime.parse(articles[index]['article_date'])),
