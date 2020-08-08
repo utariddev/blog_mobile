@@ -7,6 +7,7 @@ import 'package:flutter/widgets.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart';
+
 import 'detay.dart';
 
 class Anasayfa extends StatefulWidget {
@@ -179,7 +180,7 @@ class _AnasayfaState extends State<Anasayfa> {
                         children: <Widget>[
                           Expanded(
                             child: Hero(
-                              tag: articles[index]['article_image'],
+                              tag: articles[index]['id'],
                               child: Image(
                                 fit: BoxFit.fitWidth,
                                 image: NetworkImage(
