@@ -5,8 +5,9 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart';
-import 'package:utarid/models/categori_articles.dart';
-import 'package:utarid/ui/detay.dart';
+
+import 'detay.dart';
+import '../models/categori_articles.dart';
 
 class KategoriArticle extends StatefulWidget {
   var kategoriarticleId;

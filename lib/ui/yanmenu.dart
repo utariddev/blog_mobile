@@ -3,8 +3,9 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:utarid/models/kategori.dart';
-import 'package:utarid/ui/kategori_article.dart';
+
+import 'kategori_article.dart';
+import '../models/kategori.dart';
 
 class YanMenu extends StatefulWidget {
   final Future<Kategori> futureKategori;

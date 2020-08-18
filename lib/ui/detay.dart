@@ -5,8 +5,26 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart';
-import 'package:utarid/models/article.dart';
 import 'package:webview_flutter/webview_flutter.dart';
+
+import '../models/article.dart';
+
+//class Detay extends StatefulWidget {
+//  @override
+//  State<StatefulWidget> createState() {
+//    // TODO: implement createState
+//    throw UnimplementedError();
+//  }
+//
+//}
+//class _DetayState extends State<Detay>{
+//  @override
+//  Widget build(BuildContext context) {
+//    // TODO: implement build
+//    throw UnimplementedError();
+//  }
+//
+//}
 
 class Detay extends StatefulWidget {
   var articleId;

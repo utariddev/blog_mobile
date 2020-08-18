@@ -1,4 +1,4 @@
-package com.example.utarid;
+package com.example.dio_test;
 
 import io.flutter.embedding.android.FlutterActivity;
 
