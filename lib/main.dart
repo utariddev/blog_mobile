@@ -397,8 +397,15 @@ class MySliverAppBar extends SliverPersistentHeaderDelegate {
       fit: StackFit.expand,
       overflow: Overflow.visible,
       children: [
+//        FlexibleSpaceBar(background:Image.network(
+//          "https://rasyonalist.org/wp-content/uploads/2017/04/M31-by-Jacob-Bers.jpg",
+//          fit: BoxFit.cover,
+//        ) ,),
         Image.network(
-          "https://rasyonalist.org/wp-content/uploads/2017/04/M31-by-Jacob-Bers.jpg",
+          "https://us.123rf.com/450wm/stori/stori1810/stori181000093/110313969-world-map-on-a-technological-background-glowing-lines-symbols-of-the-internet-radio-television-mobil.jpg?ver=6",
+//"https://cdn.blueswandaily.com//2018/03/iStock-639314512.jpg",
+          //  "https://us.123rf.com/450wm/peshkov/peshkov1806/peshkov180600314/102902999-male-hand-writing-mathematical-formulas-on-blurry-background-science-and-algebra-concept-double-expo.jpg?ver=6",
+//"https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/4ef87ea4-c054-4744-a61d-d4f8257c0725/d2kqrwa-6b66431e-dc6d-4b84-a5fa-d656c47fc8b7.jpg?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOiIsImlzcyI6InVybjphcHA6Iiwib2JqIjpbW3sicGF0aCI6IlwvZlwvNGVmODdlYTQtYzA1NC00NzQ0LWE2MWQtZDRmODI1N2MwNzI1XC9kMmtxcndhLTZiNjY0MzFlLWRjNmQtNGI4NC1hNWZhLWQ2NTZjNDdmYzhiNy5qcGcifV1dLCJhdWQiOlsidXJuOnNlcnZpY2U6ZmlsZS5kb3dubG9hZCJdfQ.ZLCbdKMpnBYIVlD5_C8ZUWgbzdEw87dJis3mrcLqDqc",
           fit: BoxFit.cover,
         ),
         Opacity(

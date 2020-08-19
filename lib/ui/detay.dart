@@ -198,6 +198,7 @@ class _DetayState extends State<Detay> {
                                                       fit: BoxFit.fill,
                                                       image: NetworkImage(
                                                         'https://googleflutter.com/sample_image.jpg',
+                                                        //BackendService.articles[index]['author_image'],
                                                       ),
                                                     ),
                                                   ),
