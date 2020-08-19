@@ -1,11 +1,12 @@
 import 'dart:ui';
 
+import 'package:flutter/animation.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-import 'kategori_article.dart';
 import '../models/kategori.dart';
+import 'kategori_article.dart';
 
 class YanMenu extends StatefulWidget {
   final Future<Kategori> futureKategori;
@@ -30,92 +31,103 @@ class _YanMenu extends State<YanMenu> {
 //yanmenu
   @override
   Widget build(BuildContext context) {
-    return Drawer(
-      child: ListView(
-        children: <Widget>[
-          DrawerHeader(
-            decoration: BoxDecoration(
-              //  color: Colors.orange,
-              image: DecorationImage(
-                fit: BoxFit.contain,
-                image: NetworkImage(
-                  'https://i.ibb.co/Yc9vnRk/logo.png',
+    return SafeArea(
+      child: Drawer(
+        child: ListView(
+          children: <Widget>[
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: DrawerHeader(
+                padding: EdgeInsets.symmetric(vertical: 20, horizontal: 100),
+                curve: Curves.easeInOutQuart,
+                decoration: BoxDecoration(
+                  //  color: Colors.orange,
+                  image: DecorationImage(
+                    fit: BoxFit.contain,
+                    image: NetworkImage(
+                      'https://i.ibb.co/Yc9vnRk/logo.png',
+                    ),
+                  ),
+                  //  color: Colors.orangeAccent,
                 ),
               ),
-              //  color: Colors.orangeAccent,
             ),
-          ),
-          FutureBuilder(
-              future: widget.futureKategori,
-              builder: (context, AsyncSnapshot<Kategori> gelenKategori) {
-                if (gelenKategori.connectionState == ConnectionState.waiting) {
-                  return Center(child: CircularProgressIndicator());
-                } else if (gelenKategori.connectionState == ConnectionState.done) {
-                  return ExpansionTile(
-                    leading: Icon(
-                      Icons.perm_device_information,
-                      color: Colors.orange,
-                    ),
-                    title: Text(
-                      'Kategori',
-                      style: TextStyle(fontSize: 16, color: Colors.orange),
-                    ),
-                    trailing: Icon(
-                      Icons.arrow_drop_down,
-                      color: Colors.orange,
-                    ),
-                    children: <Widget>[
-                      Container(
-                        //  color: Colors.amberAccent.shade100,
-                        height: MediaQuery.of(context).size.height - 400,
-                        child: ListView.builder(
-                            itemCount: gelenKategori.data.data.length,
-                            itemBuilder: (context, index) {
-                              return ListTile(
-                                title: InkWell(
-                                  onTap: () {
-                                    Navigator.of(context).push(MaterialPageRoute(
-                                        builder: (context) => KategoriArticle(
-                                            kategoriarticleId: gelenKategori.data.data[index].blogCategoryName)));
-                                  },
-                                  child: Text(
-                                    gelenKategori.data.data[index].blogCategoryName,
-                                    style: GoogleFonts.raleway(fontSize: 14, color: Colors.grey),
-                                  ),
-                                ),
-                              );
-                            }),
+            FutureBuilder(
+                future: widget.futureKategori,
+                builder: (context, AsyncSnapshot<Kategori> gelenKategori) {
+                  if (gelenKategori.connectionState == ConnectionState.waiting) {
+                    return Center(child: CircularProgressIndicator());
+                  } else if (gelenKategori.connectionState == ConnectionState.done) {
+                    return ExpansionTile(
+                      leading: Icon(
+                        Icons.perm_device_information,
+                        color: Colors.orange,
                       ),
-                    ],
-                  );
-                } else {
-                  return Text("vbghnn");
-                }
-              }),
-          Divider(),
-          ListTile(
-            leading: Icon(
-              Icons.phone,
-              color: Colors.orange,
-            ),
-            title: Text("Iletisim", style: TextStyle(fontSize: 16, color: Colors.orange)),
-            onTap: () {
-//              Navigator.pushNamed(context, "/");
-            },
-          ),
-          Divider(),
-          Row(
-            //  mainAxisSize: MainAxisSize.min,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              FlatButton(
-                onPressed: _launchURL,
-                child: Text("Copyright © 2020 - Polar Vectors",
-                    style: GoogleFonts.raleway(fontSize: 12, color: Colors.brown.withOpacity(0.3))),
+                      title: Text(
+                        'Kategori',
+                        style: TextStyle(fontSize: 16, color: Colors.orange),
+                      ),
+                      trailing: Icon(
+                        Icons.arrow_drop_down,
+                        color: Colors.orange,
+                      ),
+                      children: <Widget>[
+                        Container(
+                          //  color: Colors.amberAccent.shade100,
+                          height: MediaQuery.of(context).size.height - 400,
+                          child: ListView.builder(
+                              itemCount: gelenKategori.data.data.length,
+                              itemBuilder: (context, index) {
+                                return ListTile(
+                                  leading: Icon(
+                                    Icons.keyboard_arrow_right,
+                                    color: Colors.orange.withOpacity(1.0),
+                                  ),
+                                  title: InkWell(
+                                    onTap: () {
+                                      Navigator.of(context).push(MaterialPageRoute(
+                                          builder: (context) => KategoriArticle(
+                                              kategoriarticleId: gelenKategori.data.data[index].blogCategoryName)));
+                                    },
+                                    child: Text(
+                                      gelenKategori.data.data[index].blogCategoryName,
+                                      style: GoogleFonts.raleway(fontSize: 14, color: Colors.grey.shade50),
+                                    ),
+                                  ),
+                                );
+                              }),
+                        ),
+                      ],
+                    );
+                  } else {
+                    return Text("vbghnn");
+                  }
+                }),
+            Divider(),
+            ListTile(
+              leading: Icon(
+                Icons.phone,
+                color: Colors.orange,
               ),
-            ],
-          ),
-        ],
+              title: Text("Iletisim", style: TextStyle(fontSize: 16, color: Colors.orange)),
+              onTap: () {
+//              Navigator.pushNamed(context, "/");
+              },
+            ),
+            Divider(),
+            Row(
+              //  mainAxisSize: MainAxisSize.min,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                FlatButton(
+                  onPressed: _launchURL,
+                  child: Text("Copyright © 2020 - Polar Vectors",
+                      style: GoogleFonts.raleway(fontSize: 12, color: Colors.orange.withOpacity(1.0))),
+                ),
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }

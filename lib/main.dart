@@ -4,6 +4,9 @@ import 'package:dio/dio.dart';
 import 'package:dio_test/ui/yanmenu.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/painting.dart';
+import 'package:flutter/rendering.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_pagewise/flutter_pagewise.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/date_symbol_data_local.dart';
@@ -120,7 +123,23 @@ class _MyHomePageState extends State<MyHomePage> {
     return DefaultTabController(
       length: 4,
       child: Scaffold(
-        drawer: sayfaYan,
+        drawer: SafeArea(
+          child: Container(
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.horizontal(right: Radius.circular(50)),
+                border: Border.all(
+                  color: Colors.orange.shade600.withOpacity(0.6),
+                  width: 1,
+                )),
+            child: ClipRRect(
+              borderRadius: BorderRadius.horizontal(right: Radius.circular(50)),
+              child: Theme(
+                data: Theme.of(context).copyWith(canvasColor: Colors.transparent.withOpacity(0.4)),
+                child: sayfaYan,
+              ),
+            ),
+          ),
+        ),
         body: PagewiseSliverListExample(),
       ),
     );
@@ -139,7 +158,7 @@ class PagewiseSliverListExample extends StatelessWidget {
       child: Material(
         child: CustomScrollView(slivers: [
           SliverPersistentHeader(
-            delegate: MySliverAppBar(expandedHeight: 300),
+            delegate: MySliverAppBar(expandedHeight: 200),
             pinned: true,
           ),
           PagewiseSliverList(
@@ -385,7 +404,7 @@ class MySliverAppBar extends SliverPersistentHeaderDelegate {
         Opacity(
           opacity: shrinkOffset / expandedHeight,
           child: Row(
-            mainAxisAlignment: MainAxisAlignment.start,
+            //  mainAxisAlignment: MainAxisAlignment.start,
             children: [
               IconButton(
                   icon: Icon(
@@ -396,15 +415,13 @@ class MySliverAppBar extends SliverPersistentHeaderDelegate {
                   onPressed: () {
                     Scaffold.of(context).openDrawer();
                   }),
-              SizedBox(width: MediaQuery.of(context).size.width / 3.4),
-              Center(
-                child: Text(
-                  "UTARİD",
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontWeight: FontWeight.w700,
-                    fontSize: 30,
-                  ),
+              SizedBox(width: MediaQuery.of(context).size.width / 4),
+              Text(
+                "UTARİD",
+                style: TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.w700,
+                  fontSize: 30,
                 ),
               ),
             ],
