@@ -6,8 +6,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart';
 
-import 'detay.dart';
 import '../models/categori_articles.dart';
+import 'detay.dart';
 
 class KategoriArticle extends StatefulWidget {
   var kategoriarticleId;
@@ -60,7 +60,12 @@ class _KategoriArticleState extends State<KategoriArticle> {
     initializeDateFormatting('tr');
     return Scaffold(
       appBar: AppBar(
-        title: Text("Utarid"),
+        title: Text(
+          "Utarid",
+          style: TextStyle(color: Colors.orange),
+        ),
+        backgroundColor: Colors.white,
+        iconTheme: IconThemeData(color: Colors.orange),
       ),
       body: Hero(
         tag: widget.kategoriarticleId,

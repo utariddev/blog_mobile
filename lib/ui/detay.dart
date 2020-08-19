@@ -99,7 +99,12 @@ class _DetayState extends State<Detay> {
     initializeDateFormatting('tr');
     return Scaffold(
       appBar: AppBar(
-        title: Text("Utarid"),
+        title: Text(
+          "Utarid",
+          style: TextStyle(color: Colors.orange),
+        ),
+        backgroundColor: Colors.white,
+        iconTheme: IconThemeData(color: Colors.orange),
       ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
