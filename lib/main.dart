@@ -115,49 +115,29 @@ class PagewiseSliverListExample extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     initializeDateFormatting('tr');
-    return Padding(
-      padding: const EdgeInsets.only(top: 22.0),
-      child: CustomScrollView(slivers: [
-        SliverAppBar(
-          // title: Text("UTARID"),
-          leading: GestureDetector(
-              onTap: () {
-                Scaffold.of(context).openDrawer();
-//                  Navigator.of(context)
-//                    ..push(MaterialPageRoute(builder: (context) => sayfaYan,)
-////articleId: articles[index]['id']  articleId: BackendService.articles[_]['id'],
-//                    );
-              },
-              child: Icon(Icons.menu, color: Colors.grey.shade600)),
-          elevation: 4,
-          actionsIconTheme: IconThemeData(opacity: 0.0, color: Colors.grey),
-          snap: false,
-          floating: false,
-          pinned: true,
-          // primary: true,
-          expandedHeight: 200,
-          backgroundColor: Colors.white60,
-          flexibleSpace: Stack(
-            children: <Widget>[
-              Positioned.fill(
-                  child: Image.network(
-                "https://i.ibb.co/Yc9vnRk/logo.png",
-                fit: BoxFit.contain,
-              ))
-            ],
+    return SafeArea(
+      child: Material(
+        child: CustomScrollView(slivers: [
+          SliverPersistentHeader(
+            delegate: MySliverAppBar(expandedHeight: 300),
+            pinned: true,
           ),
-        ),
-        PagewiseSliverList(
-            pageSize: 3, itemBuilder: this._itemBuilder, pageFuture: (pageIndex) => BackendService.getPosts())
-      ]),
+          PagewiseSliverList(
+            pageSize: 3,
+            itemBuilder: this._itemBuilder,
+            pageFuture: (pageIndex) => BackendService.getPosts(),
+          )
+        ]),
+      ),
     );
   }
 
   Widget _itemBuilder(context, PostModel entry, index) {
+    debugPrint("itembuilder:" + index.toString());
     return Column(
       children: <Widget>[
         Padding(
-          padding: const EdgeInsets.all(8.0),
+          padding: const EdgeInsets.all(10),
           child: InkWell(
             onTap: () {
               Navigator.of(context)
@@ -246,7 +226,7 @@ class PagewiseSliverListExample extends StatelessWidget {
                       ],
                     ),
                     SizedBox(
-                      height: 10,
+                      height: 15,
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -265,7 +245,7 @@ class PagewiseSliverListExample extends StatelessWidget {
                       ],
                     ),
                     SizedBox(
-                      height: 5,
+                      height: 25,
                     ),
                     Divider(),
                     Row(
@@ -365,4 +345,82 @@ class ImageModel {
   static List<ImageModel> fromJsonList(jsonList) {
     return jsonList.map<ImageModel>((obj) => ImageModel.fromJson(obj)).toList();
   }
+}
+
+class MySliverAppBar extends SliverPersistentHeaderDelegate {
+  final double expandedHeight;
+
+  MySliverAppBar({@required this.expandedHeight});
+
+  @override
+  Widget build(BuildContext context, double shrinkOffset, bool overlapsContent) {
+    return Stack(
+      fit: StackFit.expand,
+      overflow: Overflow.visible,
+      children: [
+        Image.network(
+          "https://rasyonalist.org/wp-content/uploads/2017/04/M31-by-Jacob-Bers.jpg",
+          fit: BoxFit.cover,
+        ),
+        Opacity(
+          opacity: shrinkOffset / expandedHeight,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              IconButton(
+                  icon: Icon(
+                    Icons.menu,
+                    color: Colors.white,
+                    size: 30,
+                  ),
+                  onPressed: () {
+                    Scaffold.of(context).openDrawer();
+                  }),
+              SizedBox(width: MediaQuery.of(context).size.width / 3.4),
+              Center(
+                child: Text(
+                  "UTARİD",
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.w700,
+                    fontSize: 30,
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+        Positioned(
+          top: expandedHeight / 2 - shrinkOffset,
+          left: MediaQuery.of(context).size.width / 4,
+          child: Opacity(
+            opacity: (1 - shrinkOffset / expandedHeight),
+            child: Card(
+              color: Colors.transparent,
+              elevation: 80,
+              child: SizedBox(
+                height: expandedHeight,
+                width: MediaQuery.of(context).size.width / 2,
+                child: Image(
+                  image: NetworkImage(
+                    "https://i.ibb.co/Yc9vnRk/logo.png",
+                  ),
+                  fit: BoxFit.contain,
+                ),
+              ),
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
+  @override
+  double get maxExtent => expandedHeight;
+
+  @override
+  double get minExtent => kToolbarHeight;
+
+  @override
+  bool shouldRebuild(SliverPersistentHeaderDelegate oldDelegate) => true;
 }
