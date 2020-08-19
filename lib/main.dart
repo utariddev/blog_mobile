@@ -213,8 +213,8 @@ class PagewiseSliverListExample extends StatelessWidget {
                                     image: DecorationImage(
                                       fit: BoxFit.fill,
                                       image: NetworkImage(
-//                                          articles[index]['author_name'],
-                                        'https://googleflutter.com/sample_image.jpg',
+                                        BackendService.articles[index]['author_image'],
+//                                        'https://googleflutter.com/sample_image.jpg',
                                       ),
                                     ),
                                   ),
