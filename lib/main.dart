@@ -10,9 +10,10 @@ import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart';
 
 import 'constants.dart';
-import 'ui/detay.dart';
 import 'models/constant.dart';
 import 'models/kategori.dart';
+import 'ui/detay.dart';
+import 'ui/yanmenu.dart';
 
 void main() {
   runApp(MyApp());
@@ -56,11 +57,30 @@ class _MyHomePageState extends State<MyHomePage> {
     sayfaYan = YanMenu(futureKategori);
   }
 
+  void showAlertDialog(String message, String title) {
+    AlertDialog(
+      title: Text(title),
+      content: Text(message),
+      actions: [
+        FlatButton(
+          child: Text("Tamam"),
+        ),
+      ],
+      elevation: 12,
+      backgroundColor: Colors.grey,
+    );
+  }
+
   Future<Kategori> kategoriVerileriGetir() async {
     final response = await dio.post(
       Constants.URL_GET_CATEGORIES,
       data: jsonEncode(<String, String>{"": ""}),
     );
+    if (response.statusCode != 200) {
+      showAlertDialog("Bir Hata Oluştu :( Lütfen daha sonra tekrar deneyiniz", "Hata");
+      return null;
+    }
+
 //    debugPrint("kategoriVerileriGetir response : " + response.toString());
     var decodedJson = json.decode(response.toString());
     kategori = Kategori.fromJson(decodedJson);
