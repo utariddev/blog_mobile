@@ -13,12 +13,12 @@ import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart';
 
 import 'constants.dart';
-import 'models/constant.dart';
 import 'models/kategori.dart';
 import 'ui/detay.dart';
 import 'ui/yanmenu.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
   runApp(MyApp());
 }
 
@@ -43,20 +43,24 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
   final dio = new Dio();
   Future<Kategori> futureKategori; //veri
-  Future<Constant> futureConstant;
+//  Future<Constant> futureConstant;
   YanMenu sayfaYan;
   Kategori kategori;
-  Constant constant;
+  String css = "";
 
   @override
   void initState() {
     super.initState();
 
     futureKategori = kategoriVerileriGetir();
-    futureConstant = cssVerisiGetir();
+    cssVerisiGetir().then((String result) {
+      setState(() {
+        css = result;
+        //debugPrint("11css : " + css);
+      });
+    });
     sayfaYan = YanMenu(futureKategori);
   }
 
@@ -67,6 +71,9 @@ class _MyHomePageState extends State<MyHomePage> {
       actions: [
         FlatButton(
           child: Text("Tamam"),
+          onPressed: () {
+            //Navigator.pop();
+          },
         ),
       ],
       elevation: 12,
@@ -90,15 +97,17 @@ class _MyHomePageState extends State<MyHomePage> {
     return kategori;
   }
 
-  Future<Constant> cssVerisiGetir() async {
+  Future<String> cssVerisiGetir() async {
     final response = await dio.post(
       Constants.URL_GET_CONSTANT,
       data: jsonEncode(<String, String>{"key": "css"}),
     );
-    debugPrint("cssVerisiGetir response : " + response.toString());
+    //debugPrint("cssVerisiGetir response : " + response.toString());
     var decodedJson = json.decode(response.toString());
-    constant = Constant.fromJson(decodedJson);
-    return constant;
+    //debugPrint("cssVerisiGetir data : " + decodedJson["data"]);
+    return decodedJson["data"];
+//    constant = Constant.fromJson(decodedJson);
+//    return constant;
   }
 
   Future<void> getPost() async {
@@ -106,20 +115,9 @@ class _MyHomePageState extends State<MyHomePage> {
     debugPrint("responseBody : " + responseBody.data.toString());
   }
 
-//  void _incrementCounter() {
-//
-//    setState(() {
-//      // This call to setState tells the Flutter framework that something has
-//      // changed in this State, which causes it to rerun the build method below
-//      // so that the display can reflect the updated values. If we changed
-//      // _counter without calling setState(), then the build method would not be
-//      // called again, and so nothing would appear to happen.
-//      _counter++;
-//    });
-//  }
-
   @override
   Widget build(BuildContext context) {
+    //debugPrint("aaa css : " + css);
     return DefaultTabController(
       length: 4,
       child: Scaffold(
@@ -140,7 +138,7 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
           ),
         ),
-        body: PagewiseSliverListExample(),
+        body: PagewiseSliverListExample(css: css),
       ),
     );
   }
@@ -149,10 +147,15 @@ class _MyHomePageState extends State<MyHomePage> {
 class PagewiseSliverListExample extends StatelessWidget {
 //  static const int PAGE_SIZE = 1000;
   int indicator = -2;
-  YanMenu sayfaYan;
+
+//  YanMenu sayfaYan;
+  String css = "";
+
+  PagewiseSliverListExample({this.css});
 
   @override
   Widget build(BuildContext context) {
+//    debugPrint("PagewiseSliverListExample css : " + css);
     initializeDateFormatting('tr');
     return SafeArea(
       child: Material(
@@ -182,6 +185,7 @@ class PagewiseSliverListExample extends StatelessWidget {
               Navigator.of(context)
                 ..push(MaterialPageRoute(
                     builder: (context) => Detay(
+                          css: css,
                           articleId: BackendService.articles[index]['id'],
                         )
 //articleId: articles[index]['id']  articleId: BackendService.articles[_]['id'],
@@ -191,9 +195,7 @@ class PagewiseSliverListExample extends StatelessWidget {
               borderRadius: BorderRadius.circular(10),
               color: Colors.grey.shade50,
               elevation: 6,
-              child:
-                  //Text("bvcfdxfcgvhb:" + index.toString()),
-                  Container(
+              child: Container(
                 margin: EdgeInsets.only(left: 10, right: 10, bottom: 30),
                 child: Column(
                   children: <Widget>[
@@ -314,7 +316,7 @@ class PagewiseSliverListExample extends StatelessWidget {
 class BackendService {
   static final dio = new Dio();
   static int indicator = -3;
-  String url = "http://blogsrvr.herokuapp.com/rest/message/getArticles";
+  static String url = "http://blogsrvr.herokuapp.com/rest/message/getArticles";
   bool isLoading = false;
   static List articles = new List();
 
@@ -327,7 +329,7 @@ class BackendService {
 //    debugPrint("responseBody : " + responseBody);
     indicator = indicator + 3;
     final responseBody2 = (await dio.post(
-      'http://blogsrvr.herokuapp.com/rest/message/getArticles',
+      url,
       data: jsonEncode(<String, String>{"indicator": indicator.toString()}),
       options: Options(
         responseType: ResponseType.plain,

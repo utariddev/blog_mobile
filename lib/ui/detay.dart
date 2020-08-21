@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart';
@@ -28,11 +29,12 @@ import '../models/article.dart';
 
 class Detay extends StatefulWidget {
   var articleId;
+  var css;
 
-  Detay({this.articleId});
+  Detay({this.articleId, this.css});
 
   @override
-  _DetayState createState() => _DetayState();
+  _DetayState createState() => _DetayState(css: css);
 }
 
 class _DetayState extends State<Detay> {
@@ -40,6 +42,9 @@ class _DetayState extends State<Detay> {
   Article article;
   final dio = new Dio();
   WebViewController _controller;
+  String css = "b";
+
+  _DetayState({this.css});
 
   Future<Article> articleVerileriGetir() async {
     dio.options.headers = {"Content-Type": "application/json; charset=UTF-8"};
@@ -69,29 +74,37 @@ class _DetayState extends State<Detay> {
 //    return article;
 //  }
 
-  loadHtml(String a) async {
-    debugPrint("detay:_loadHtmlFromAssets");
+//  loadHtml(String a) async
+  String loadHtml(String a) {
+//    debugPrint("detay:_loadHtmlFromAssets : " + css);
     String fileText = """
     <html>
 <body>
 <style type="text/css">
-.myNewStyle {
-   font-family: Verdana, Arial, Helvetica, sans-serif;
-   font-weight: bold;
-   color: #FF0000;
+//.myNewStyle {
+//   font-family: Verdana, Arial, Helvetica, sans-serif;
+//   font-weight: bold;
+//   color: #FF0000;
 }
+""" +
+        css +
+        """
 </style>
-<p class="myNewStyle">Msady CSS styled text1</p>
+""" +
+        a +
+        """
+<!--<p class="myNewStyle">Msady CSS styled text1</p>
 <p>My CSS styled text2</p>
 <p class="myNewStyle">My CSS styled text3</p>
 <ul>
 <li class="myNewStyle">1</li>
 <li>2</li>
-</ul>
+</ul>-->
 </body>
 </html>
     """;
-    _controller.loadUrl(Uri.dataFromString(a, mimeType: 'text/html', encoding: Encoding.getByName('utf-8')).toString());
+    //_controller.loadUrl(Uri.dataFromString(fileText, mimeType: 'text/html', encoding: Encoding.getByName('utf-8')).toString());
+    return fileText;
   }
 
   @override
@@ -118,15 +131,14 @@ class _DetayState extends State<Detay> {
               child: LayoutBuilder(
                 builder: (context, constraints) {
                   final size = Size(constraints.maxHeight, constraints.maxWidth);
-                  return CachingFutureBuilder<Article>(
+                  return FutureBuilder(
                     key: ValueKey(size),
-                    futureFactory: () => articleVerileriGetir(),
+                    future: articleVerileriGetir(),
                     builder: (context, AsyncSnapshot<Article> gelenArticle) {
                       if (gelenArticle.connectionState == ConnectionState.waiting) {
                         return Center(child: CircularProgressIndicator());
                       } else if (gelenArticle.connectionState == ConnectionState.done) {
 //              return Text(gelenArticle.data.data.length.toString());
-
                         return Column(
 //                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: <Widget>[
@@ -197,8 +209,7 @@ class _DetayState extends State<Detay> {
                                                     image: DecorationImage(
                                                       fit: BoxFit.fill,
                                                       image: NetworkImage(
-                                                        'https://googleflutter.com/sample_image.jpg',
-                                                        //BackendService.articles[index]['author_image'],
+                                                        gelenArticle.data.data[0].authorImage,
                                                       ),
                                                     ),
                                                   ),
@@ -219,16 +230,22 @@ class _DetayState extends State<Detay> {
                                 children: <Widget>[
                                   Container(
 //                                    height: 200,
-                                    width: constraints.maxWidth,
+                                      width: constraints.maxWidth,
 //                                    child: Text(gelenArticle.data.data[0].articleText),
-                                    child: WebView(
-                                      initialUrl: 'about:blank',
-                                      onWebViewCreated: (WebViewController webViewController) {
-                                        _controller = webViewController;
-                                        loadHtml(gelenArticle.data.data[0].articleText);
-                                      },
-                                    ),
-                                  ),
+                                      child: InAppWebView(
+                                        initialOptions: InAppWebViewGroupOptions(
+                                            crossPlatform: InAppWebViewOptions(
+                                          supportZoom: false,
+                                        )),
+                                        initialData: InAppWebViewInitialData(
+                                            data: loadHtml(gelenArticle.data.data[0].articleText)),
+                                      )
+//                                      initialUrl: 'about:blank',
+//                                      onWebViewCreated: (WebViewController webViewController) {
+//                                        _controller = webViewController;
+//                                        loadHtml(gelenArticle.data.data[0].articleText);
+//                                      },
+                                      ),
                                 ],
                               ),
                             ),
@@ -265,6 +282,178 @@ class _DetayState extends State<Detay> {
       ),
     );
   }
+
+//  @override
+//  Widget build(BuildContext context) {
+//    initializeDateFormatting('tr');
+//    return Scaffold(
+//      appBar: AppBar(
+//        title: Text(
+//          "Utarid",
+//          style: TextStyle(color: Colors.orange),
+//        ),
+//        backgroundColor: Colors.white,
+//        iconTheme: IconThemeData(color: Colors.orange),
+//      ),
+//      body: Padding(
+//        padding: const EdgeInsets.all(8.0),
+//        child: Hero(
+//          tag: widget.articleId,
+//          child: Material(
+//            elevation: 6,
+//            borderRadius: BorderRadius.circular(16),
+//            child: Padding(
+//              padding: const EdgeInsets.all(8.0),
+//              child: LayoutBuilder(
+//                builder: (context, constraints) {
+//                  final size = Size(constraints.maxHeight, constraints.maxWidth);
+//                  return CachingFutureBuilder<Article>(
+//                    key: ValueKey(size),
+//                    futureFactory: () => articleVerileriGetir(),
+//                    builder: (context, AsyncSnapshot<Article> gelenArticle) {
+//                      if (gelenArticle.connectionState == ConnectionState.waiting) {
+//                        return Center(child: CircularProgressIndicator());
+//                      } else if (gelenArticle.connectionState == ConnectionState.done) {
+////              return Text(gelenArticle.data.data.length.toString());
+//
+//                        return Column(
+////                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+//                          children: <Widget>[
+//                            Container(
+//                              child: Padding(
+//                                padding: const EdgeInsets.all(8.0),
+//                                child: Row(
+//                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+//                                  children: <Widget>[
+//                                    Expanded(
+//                                      flex: 1,
+//                                      child: Padding(
+//                                        padding: const EdgeInsets.all(8.0),
+//                                        child: Column(
+//                                          // crossAxisAlignment: CrossAxisAlignment.center,
+//                                          children: <Widget>[
+//                                            Text(gelenArticle.data.data[0].articleTitle,
+//                                                textAlign: TextAlign.center,
+//                                                style: GoogleFonts.raleway(
+//                                                    color: Colors.black, fontSize: 14, fontWeight: FontWeight.w800)),
+//                                          ],
+//                                        ),
+//                                      ),
+//                                    ),
+//                                    SizedBox(
+//                                      width: 20,
+//                                    ),
+//                                    Column(
+//                                      crossAxisAlignment: CrossAxisAlignment.start,
+//                                      children: <Widget>[
+//                                        Padding(
+//                                          padding: const EdgeInsets.only(left: 60),
+//                                          child: Row(
+//                                            children: <Widget>[
+//                                              Text(
+//                                                  DateFormat.yMMMMd('tr_TR')
+//                                                      .format(gelenArticle.data.data[0].articleDate),
+//                                                  style: GoogleFonts.raleway(
+//                                                      color: Colors.black, fontSize: 10, fontWeight: FontWeight.w400)),
+//                                            ],
+//                                          ),
+//                                        ),
+//                                        SizedBox(
+//                                          height: 10,
+//                                        ),
+//                                        Row(
+//                                          //  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+//                                          children: <Widget>[
+//                                            Column(
+//                                              children: <Widget>[
+//                                                Text(gelenArticle.data.data[0].authorName,
+//                                                    style: GoogleFonts.raleway(
+//                                                        color: Colors.black,
+//                                                        fontSize: 10,
+//                                                        fontWeight: FontWeight.w400)),
+//                                              ],
+//                                            ),
+//                                            SizedBox(
+//                                              width: 40,
+//                                            ),
+//                                            Column(
+//                                              children: <Widget>[
+//                                                Container(
+//                                                  height: 50,
+//                                                  width: 50,
+//                                                  decoration: BoxDecoration(
+//                                                    shape: BoxShape.circle,
+//                                                    image: DecorationImage(
+//                                                      fit: BoxFit.fill,
+//                                                      image: NetworkImage(
+//                                                        'https://googleflutter.com/sample_image.jpg',
+//                                                        //BackendService.articles[index]['author_image'],
+//                                                      ),
+//                                                    ),
+//                                                  ),
+//                                                ),
+//                                              ],
+//                                            )
+//                                          ],
+//                                        ),
+//                                      ],
+//                                    ),
+//                                  ],
+//                                ),
+//                              ),
+//                            ),
+//                            Expanded(
+////                              flex: 4,
+//                              child: Row(
+//                                children: <Widget>[
+//                                  Container(
+////                                    height: 200,
+//                                    width: constraints.maxWidth,
+////                                    child: Text(gelenArticle.data.data[0].articleText),
+//                                    child: WebView(
+//                                      initialUrl: 'about:blank',
+//                                      onWebViewCreated: (WebViewController webViewController) {
+//                                        _controller = webViewController;
+//                                        loadHtml(gelenArticle.data.data[0].articleText);
+//                                      },
+//                                    ),
+//                                  ),
+//                                ],
+//                              ),
+//                            ),
+//                            Container(
+//                              child: Row(
+//                                children: <Widget>[
+//                                  Divider(),
+//                                  SizedBox(
+//                                    height: 10,
+//                                  ),
+//                                  Text(gelenArticle.data.data[0].blogCategoryName,
+//                                      style: GoogleFonts.raleway(fontSize: 10, color: Colors.brown.withOpacity(0.4))),
+//                                  SizedBox(
+//                                    width: 30,
+//                                  ),
+//                                  Icon(Icons.library_books, color: Colors.brown.withOpacity(0.4), size: 15),
+//                                  Text(gelenArticle.data.data[0].articleRead,
+//                                      style: GoogleFonts.raleway(fontSize: 10, color: Colors.brown.withOpacity(0.2))),
+//                                ],
+//                              ),
+//                            ),
+//                          ],
+//                        );
+//                      } else {
+//                        return Text("a");
+//                      }
+//                    },
+//                  );
+//                },
+//              ),
+//            ),
+//          ),
+//        ),
+//      ),
+//    );
+//  }
 }
 
 class CachingFutureBuilder<T> extends StatefulWidget {
