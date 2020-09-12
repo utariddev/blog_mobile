@@ -1,7 +1,6 @@
 import 'dart:convert';
 
 import 'package:dio/dio.dart';
-import 'package:dio_test/ui/yanmenu.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
@@ -58,7 +57,6 @@ class _MyHomePageState extends State<MyHomePage> {
     cssVerisiGetir().then((String result) {
       setState(() {
         css = result;
-        //debugPrint("11css : " + css);
       });
     });
     sayfaYan = YanMenu(futureKategori);
