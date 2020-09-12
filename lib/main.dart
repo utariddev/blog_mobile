@@ -175,21 +175,20 @@ class PagewiseSliverListExample extends StatelessWidget {
   }
 
   Widget _itemBuilder(context, PostModel entry, index) {
-    debugPrint("itembuilder:" + index.toString());
+    debugPrint("main itembuilder:" + index.toString());
     return Column(
       children: <Widget>[
         Padding(
           padding: const EdgeInsets.all(10),
           child: InkWell(
             onTap: () {
-              Navigator.of(context)
-                ..push(MaterialPageRoute(
-                    builder: (context) => Detay(
-                          css: css,
-                          articleId: BackendService.articles[index]['id'],
-                        )
+              Navigator.of(context).push(MaterialPageRoute(
+                  builder: (context) => Detay(
+                        css: css,
+                        articleId: BackendService.articles[index]['id'],
+                      )
 //articleId: articles[index]['id']  articleId: BackendService.articles[_]['id'],
-                    ));
+                  ));
             },
             child: Material(
               borderRadius: BorderRadius.circular(10),
