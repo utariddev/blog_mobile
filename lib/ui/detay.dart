@@ -43,16 +43,25 @@ class _DetayState extends State<Detay> {
   final dio = new Dio();
   WebViewController _controller;
   String css = "b";
+  Future<Article> _futureArticle;
 
   _DetayState({this.css});
 
+  @override
+  void initState() {
+    _futureArticle = articleVerileriGetir();
+    super.initState();
+  }
+
   Future<Article> articleVerileriGetir() async {
+    debugPrint("articleVerileriGetir");
+
     dio.options.headers = {"Content-Type": "application/json; charset=UTF-8"};
     final response = await dio.post(
       url,
       data: jsonEncode(<String, String>{"articleID": widget.articleId}),
     );
-    debugPrint("articleVerileriGetir response.data : " + response.toString());
+    debugPrint("articleVerileriGetir widget.articleId : " + widget.articleId);
 
     var decodedJson = json.decode(response.toString());
     article = Article.fromJson(decodedJson);
@@ -133,7 +142,7 @@ class _DetayState extends State<Detay> {
                   final size = Size(constraints.maxHeight, constraints.maxWidth);
                   return FutureBuilder(
                     key: ValueKey(size),
-                    future: articleVerileriGetir(),
+                    future: _futureArticle,
                     builder: (context, AsyncSnapshot<Article> gelenArticle) {
                       if (gelenArticle.connectionState == ConnectionState.waiting) {
                         return Center(child: CircularProgressIndicator());
@@ -270,7 +279,7 @@ class _DetayState extends State<Detay> {
                           ],
                         );
                       } else {
-                        return Text("a");
+                        return Text("hata oluştu");
                       }
                     },
                   );
