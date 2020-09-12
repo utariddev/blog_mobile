@@ -411,28 +411,35 @@ class MySliverAppBar extends SliverPersistentHeaderDelegate {
         ),
         Opacity(
           opacity: shrinkOffset / expandedHeight,
-          child: Row(
-            //  mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              IconButton(
-                  icon: Icon(
-                    Icons.menu,
-                    color: Colors.white,
-                    size: 30,
+          child: Center(
+            child: Stack(
+              children: <Widget>[
+                Container(
+                  alignment: Alignment.centerLeft,
+                  child: IconButton(
+                    icon: Icon(
+                      Icons.menu,
+                      color: Colors.white,
+                      size: 30,
+                    ),
+                    onPressed: () {
+                      Scaffold.of(context).openDrawer();
+                    },
                   ),
-                  onPressed: () {
-                    Scaffold.of(context).openDrawer();
-                  }),
-              SizedBox(width: MediaQuery.of(context).size.width / 4),
-              Text(
-                "UTARİD",
-                style: TextStyle(
-                  color: Colors.white,
-                  fontWeight: FontWeight.w700,
-                  fontSize: 30,
                 ),
-              ),
-            ],
+                Container(
+                  alignment: Alignment.center,
+                  child: Text(
+                    "utarid",
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.w700,
+                      fontSize: 30,
+                    ),
+                  ),
+                )
+              ],
+            ),
           ),
         ),
         Positioned(
