@@ -7,6 +7,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart';
 import 'package:webview_flutter/webview_flutter.dart';
+import 'package:utarid/constants.dart';
 
 import '../models/article.dart';
 
@@ -38,7 +39,8 @@ class Detay extends StatefulWidget {
 }
 
 class _DetayState extends State<Detay> {
-  String url = "http://blogsrvr.herokuapp.com/rest/message/getArticle";
+  // String url = "http://blogsrvr.herokuapp.com/rest/message/getArticle";
+  String url = Constants().getUrlForArticle();
   Article article;
   final dio = new Dio();
   WebViewController _controller;

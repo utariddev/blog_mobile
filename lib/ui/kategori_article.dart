@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart';
+import 'package:utarid/constants.dart';
 
 import '../models/categori_articles.dart';
 import 'detay.dart';
@@ -19,7 +20,8 @@ class KategoriArticle extends StatefulWidget {
 }
 
 class _KategoriArticleState extends State<KategoriArticle> {
-  String url = "http://blogsrvr.herokuapp.com/rest/message/getCategoryArticles";
+  // String url = "http://blogsrvr.herokuapp.com/rest/message/getCategoryArticles";
+  String url = Constants().getUrlForCategories();
   Kategoriarticle kategoriArticle;
   Future<Kategoriarticle> _kategoriArticle;
   final dio = new Dio();

@@ -30,23 +30,19 @@ class Constants {
     return DateFormat('yyyyMMddHHmmss').format(DateTime.now());
   }
 
-  String getUrlForCategories()
-  {
+  String getUrlForCategories() {
     return URL_GET_CATEGORIES;
   }
 
-  String getUrlForArticles()
-  {
+  String getUrlForArticles() {
     return URL_GET_ARTICLES;
   }
 
-  String getUrlForArticle()
-  {
+  String getUrlForArticle() {
     return URL_GET_ARTICLE;
   }
 
-  String getUrlForConstants()
-  {
+  String getUrlForConstants() {
     return URL_GET_CONSTANT;
   }
 }
