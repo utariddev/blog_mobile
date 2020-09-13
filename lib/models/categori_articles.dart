@@ -1,12 +1,6 @@
-// To parse this JSON data, do
+// Kategoriarticle kategoriarticleFromJson(String str) => Kategoriarticle.fromJson(json.decode(str));
 //
-//     final kategoriarticle = kategoriarticleFromJson(jsonString);
-
-import 'dart:convert';
-
-Kategoriarticle kategoriarticleFromJson(String str) => Kategoriarticle.fromJson(json.decode(str));
-
-String kategoriarticleToJson(Kategoriarticle data) => json.encode(data.toJson());
+// String kategoriarticleToJson(Kategoriarticle data) => json.encode(data.toJson());
 
 class Kategoriarticle {
   Kategoriarticle({
@@ -19,13 +13,13 @@ class Kategoriarticle {
 
   factory Kategoriarticle.fromJson(Map<String, dynamic> json) => Kategoriarticle(
         result: Result.fromJson(json["result"]),
-        data: List<Datum>.from(json["data"].map((x) => Datum.fromJson(x))),
+        data: json["data"] != null ? List<Datum>.from(json["data"].map((x) => Datum.fromJson(x))) : null,
       );
 
-  Map<String, dynamic> toJson() => {
-        "result": result.toJson(),
-        "data": List<dynamic>.from(data.map((x) => x.toJson())),
-      };
+// Map<String, dynamic> toJson() => {
+//       "result": result.toJson(),
+//       "data": List<dynamic>.from(data.map((x) => x.toJson())),
+//     };
 }
 
 class Datum {
@@ -81,23 +75,23 @@ class Datum {
         articleLike: json["article_like"],
       );
 
-  Map<String, dynamic> toJson() => {
-        "article_category": articleCategory,
-        "author_name": authorName,
-        "article_read": articleRead,
-        "article_active": articleActive,
-        "article_text": articleText,
-        "blog_category_name": blogCategoryName,
-        "article_date": articleDate.toIso8601String(),
-        "blog_category_image_id": blogCategoryImageId,
-        "article_image": articleImage,
-        "article_title": articleTitle,
-        "article_author": articleAuthor,
-        "image_path": imagePath,
-        "article_summary": articleSummary,
-        "id": id,
-        "article_like": articleLike,
-      };
+// Map<String, dynamic> toJson() => {
+//       "article_category": articleCategory,
+//       "author_name": authorName,
+//       "article_read": articleRead,
+//       "article_active": articleActive,
+//       "article_text": articleText,
+//       "blog_category_name": blogCategoryName,
+//       "article_date": articleDate.toIso8601String(),
+//       "blog_category_image_id": blogCategoryImageId,
+//       "article_image": articleImage,
+//       "article_title": articleTitle,
+//       "article_author": articleAuthor,
+//       "image_path": imagePath,
+//       "article_summary": articleSummary,
+//       "id": id,
+//       "article_like": articleLike,
+//     };
 }
 
 class Result {
@@ -114,8 +108,8 @@ class Result {
         code: json["code"],
       );
 
-  Map<String, dynamic> toJson() => {
-        "desc": desc,
-        "code": code,
-      };
+// Map<String, dynamic> toJson() => {
+//       "desc": desc,
+//       "code": code,
+//     };
 }

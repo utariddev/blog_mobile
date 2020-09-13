@@ -1,12 +1,6 @@
-// To parse this JSON data, do
+// Kategori kategoriFromJson(String str) => Kategori.fromJson(json.decode(str));
 //
-//     final ekrem = ekremFromJson(jsonString);
-
-import 'dart:convert';
-
-Kategori kategoriFromJson(String str) => Kategori.fromJson(json.decode(str));
-
-String kategoriToJson(Kategori data) => json.encode(data.toJson());
+// String kategoriToJson(Kategori data) => json.encode(data.toJson());
 
 class Kategori {
   Kategori({
@@ -19,13 +13,13 @@ class Kategori {
 
   factory Kategori.fromJson(Map<String, dynamic> json) => Kategori(
         result: Result.fromJson(json["result"]),
-        data: List<Datum>.from(json["data"].map((x) => Datum.fromJson(x))),
+        data: json["data"] != null ? List<Datum>.from(json["data"].map((x) => Datum.fromJson(x))) : null,
       );
 
-  Map<String, dynamic> toJson() => {
-        "result": result.toJson(),
-        "data": List<dynamic>.from(data.map((x) => x.toJson())),
-      };
+// Map<String, dynamic> toJson() => {
+//       "result": result.toJson(),
+//       "data": List<dynamic>.from(data.map((x) => x.toJson())),
+//     };
 }
 
 class Datum {
@@ -48,12 +42,12 @@ class Datum {
         blogCategoryImageId: json["blog_category_image_id"],
       );
 
-  Map<String, dynamic> toJson() => {
-        "image_path": imagePath,
-        "blog_category_name": blogCategoryName,
-        "id": id,
-        "blog_category_image_id": blogCategoryImageId,
-      };
+// Map<String, dynamic> toJson() => {
+//       "image_path": imagePath,
+//       "blog_category_name": blogCategoryName,
+//       "id": id,
+//       "blog_category_image_id": blogCategoryImageId,
+//     };
 }
 
 class Result {
@@ -70,8 +64,8 @@ class Result {
         code: json["code"],
       );
 
-  Map<String, dynamic> toJson() => {
-        "desc": desc,
-        "code": code,
-      };
+// Map<String, dynamic> toJson() => {
+//       "desc": desc,
+//       "code": code,
+//     };
 }

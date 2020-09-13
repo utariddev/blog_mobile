@@ -1,8 +1,6 @@
-import 'dart:convert';
-
-Constant constantFromJson(String str) => Constant.fromJson(json.decode(str));
-
-String constantToJson(Constant data) => json.encode(data.toJson());
+// Constant constantFromJson(String str) => Constant.fromJson(json.decode(str));
+//
+// String constantToJson(Constant data) => json.encode(data.toJson());
 
 class Constant {
   Constant({
@@ -18,10 +16,10 @@ class Constant {
         data: json["data"],
       );
 
-  Map<String, dynamic> toJson() => {
-        "result": result.toJson(),
-        "data": data,
-      };
+// Map<String, dynamic> toJson() => {
+//       "result": result.toJson(),
+//       "data": data,
+//     };
 }
 
 class Result {
@@ -38,8 +36,8 @@ class Result {
         code: json["code"],
       );
 
-  Map<String, dynamic> toJson() => {
-        "desc": desc,
-        "code": code,
-      };
+// Map<String, dynamic> toJson() => {
+//       "desc": desc,
+//       "code": code,
+//     };
 }

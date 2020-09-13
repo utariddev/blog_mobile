@@ -6,7 +6,7 @@ import 'dart:convert';
 
 Article articleFromJson(String str) => Article.fromJson(json.decode(str));
 
-String articleToJson(Article data) => json.encode(data.toJson());
+// String articleToJson(Article data) => json.encode(data.toJson());
 
 class Article {
   Article({
@@ -19,13 +19,14 @@ class Article {
 
   factory Article.fromJson(Map<String, dynamic> json) => Article(
         result: Result.fromJson(json["result"]),
-        data: List<Datum>.from(json["data"].map((x) => Datum.fromJson(x))),
+        // data: List<Datum>.from(json["data"].map((x) => Datum.fromJson(x))),
+        data: json["data"] != null ? List<Datum>.from(json["data"].map((x) => Datum.fromJson(x))) : null,
       );
 
-  Map<String, dynamic> toJson() => {
-        "result": result.toJson(),
-        "data": List<dynamic>.from(data.map((x) => x.toJson())),
-      };
+// Map<String, dynamic> toJson() => {
+//       "result": result.toJson(),
+//       "data": List<dynamic>.from(data.map((x) => x.toJson())),
+//     };
 }
 
 class Datum {
@@ -84,24 +85,24 @@ class Datum {
         authorImage: json["author_image"],
       );
 
-  Map<String, dynamic> toJson() => {
-        "article_category": articleCategory,
-        "author_name": authorName,
-        "article_read": articleRead,
-        "article_active": articleActive,
-        "article_text": articleText,
-        "blog_category_name": blogCategoryName,
-        "article_date": articleDate.toIso8601String(),
-        "blog_category_image_id": blogCategoryImageId,
-        "article_image": articleImage,
-        "article_title": articleTitle,
-        "article_author": articleAuthor,
-        "image_path": imagePath,
-        "article_summary": articleSummary,
-        "id": id,
-        "article_like": articleLike,
-        "author_image": authorImage
-      };
+// Map<String, dynamic> toJson() => {
+//       "article_category": articleCategory,
+//       "author_name": authorName,
+//       "article_read": articleRead,
+//       "article_active": articleActive,
+//       "article_text": articleText,
+//       "blog_category_name": blogCategoryName,
+//       "article_date": articleDate.toIso8601String(),
+//       "blog_category_image_id": blogCategoryImageId,
+//       "article_image": articleImage,
+//       "article_title": articleTitle,
+//       "article_author": articleAuthor,
+//       "image_path": imagePath,
+//       "article_summary": articleSummary,
+//       "id": id,
+//       "article_like": articleLike,
+//       "author_image": authorImage
+//     };
 }
 
 class Result {
@@ -118,8 +119,8 @@ class Result {
         code: json["code"],
       );
 
-  Map<String, dynamic> toJson() => {
-        "desc": desc,
-        "code": code,
-      };
+// Map<String, dynamic> toJson() => {
+//       "desc": desc,
+//       "code": code,
+//     };
 }
