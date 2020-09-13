@@ -147,137 +147,147 @@ class _DetayState extends State<Detay> {
                       if (gelenArticle.connectionState == ConnectionState.waiting) {
                         return Center(child: CircularProgressIndicator());
                       } else if (gelenArticle.connectionState == ConnectionState.done) {
-//              return Text(gelenArticle.data.data.length.toString());
-                        return Column(
+                        if (gelenArticle.data.result.code == "1") {
+                          return Column(
 //                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: <Widget>[
-                            Container(
-                              child: Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                  children: <Widget>[
-                                    Expanded(
-                                      flex: 1,
-                                      child: Padding(
-                                        padding: const EdgeInsets.all(8.0),
-                                        child: Column(
-                                          // crossAxisAlignment: CrossAxisAlignment.center,
-                                          children: <Widget>[
-                                            Text(gelenArticle.data.data[0].articleTitle,
-                                                textAlign: TextAlign.center,
-                                                style: GoogleFonts.raleway(
-                                                    color: Colors.black, fontSize: 14, fontWeight: FontWeight.w800)),
-                                          ],
-                                        ),
-                                      ),
-                                    ),
-                                    SizedBox(
-                                      width: 20,
-                                    ),
-                                    Column(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                      children: <Widget>[
-                                        Padding(
-                                          padding: const EdgeInsets.only(left: 60),
-                                          child: Row(
+                            children: <Widget>[
+                              Container(
+                                child: Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    children: <Widget>[
+                                      Expanded(
+                                        flex: 1,
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(8.0),
+                                          child: Column(
+                                            // crossAxisAlignment: CrossAxisAlignment.center,
                                             children: <Widget>[
-                                              Text(
-                                                  DateFormat.yMMMMd('tr_TR')
-                                                      .format(gelenArticle.data.data[0].articleDate),
+                                              Text(gelenArticle.data.data[0].articleTitle,
+                                                  textAlign: TextAlign.center,
                                                   style: GoogleFonts.raleway(
-                                                      color: Colors.black, fontSize: 10, fontWeight: FontWeight.w400)),
+                                                      color: Colors.black, fontSize: 14, fontWeight: FontWeight.w800)),
                                             ],
                                           ),
                                         ),
-                                        SizedBox(
-                                          height: 10,
-                                        ),
-                                        Row(
-                                          //  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                          children: <Widget>[
-                                            Column(
+                                      ),
+                                      SizedBox(
+                                        width: 20,
+                                      ),
+                                      Column(
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        children: <Widget>[
+                                          Padding(
+                                            padding: const EdgeInsets.only(left: 60),
+                                            child: Row(
                                               children: <Widget>[
-                                                Text(gelenArticle.data.data[0].authorName,
+                                                Text(
+                                                    DateFormat.yMMMMd('tr_TR')
+                                                        .format(gelenArticle.data.data[0].articleDate),
                                                     style: GoogleFonts.raleway(
                                                         color: Colors.black,
                                                         fontSize: 10,
                                                         fontWeight: FontWeight.w400)),
                                               ],
                                             ),
-                                            SizedBox(
-                                              width: 40,
-                                            ),
-                                            Column(
-                                              children: <Widget>[
-                                                Container(
-                                                  height: 50,
-                                                  width: 50,
-                                                  decoration: BoxDecoration(
-                                                    shape: BoxShape.circle,
-                                                    image: DecorationImage(
-                                                      fit: BoxFit.fill,
-                                                      image: NetworkImage(
-                                                        gelenArticle.data.data[0].authorImage,
+                                          ),
+                                          SizedBox(
+                                            height: 10,
+                                          ),
+                                          Row(
+                                            //  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                            children: <Widget>[
+                                              Column(
+                                                children: <Widget>[
+                                                  Text(gelenArticle.data.data[0].authorName,
+                                                      style: GoogleFonts.raleway(
+                                                          color: Colors.black,
+                                                          fontSize: 10,
+                                                          fontWeight: FontWeight.w400)),
+                                                ],
+                                              ),
+                                              SizedBox(
+                                                width: 40,
+                                              ),
+                                              Column(
+                                                children: <Widget>[
+                                                  Container(
+                                                    height: 50,
+                                                    width: 50,
+                                                    decoration: BoxDecoration(
+                                                      shape: BoxShape.circle,
+                                                      image: DecorationImage(
+                                                        fit: BoxFit.fill,
+                                                        image: NetworkImage(
+                                                          gelenArticle.data.data[0].authorImage,
+                                                        ),
                                                       ),
                                                     ),
                                                   ),
-                                                ),
-                                              ],
-                                            )
-                                          ],
-                                        ),
-                                      ],
-                                    ),
-                                  ],
+                                                ],
+                                              )
+                                            ],
+                                          ),
+                                        ],
+                                      ),
+                                    ],
+                                  ),
                                 ),
                               ),
-                            ),
-                            Expanded(
+                              Expanded(
 //                              flex: 4,
-                              child: Row(
-                                children: <Widget>[
-                                  Container(
+                                child: Row(
+                                  children: <Widget>[
+                                    Container(
 //                                    height: 200,
-                                      width: constraints.maxWidth,
+                                        width: constraints.maxWidth,
 //                                    child: Text(gelenArticle.data.data[0].articleText),
-                                      child: InAppWebView(
-                                        initialOptions: InAppWebViewGroupOptions(
-                                            crossPlatform: InAppWebViewOptions(
-                                          supportZoom: false,
-                                        )),
-                                        initialData: InAppWebViewInitialData(
-                                            data: loadHtml(gelenArticle.data.data[0].articleText)),
-                                      )
+                                        child: InAppWebView(
+                                          initialOptions: InAppWebViewGroupOptions(
+                                              crossPlatform: InAppWebViewOptions(
+                                            supportZoom: false,
+                                          )),
+                                          initialData: InAppWebViewInitialData(
+                                              data: loadHtml(gelenArticle.data.data[0].articleText)),
+                                        )
 //                                      initialUrl: 'about:blank',
 //                                      onWebViewCreated: (WebViewController webViewController) {
 //                                        _controller = webViewController;
 //                                        loadHtml(gelenArticle.data.data[0].articleText);
 //                                      },
-                                      ),
-                                ],
+                                        ),
+                                  ],
+                                ),
                               ),
-                            ),
-                            Container(
-                              child: Row(
-                                children: <Widget>[
-                                  Divider(),
-                                  SizedBox(
-                                    height: 10,
-                                  ),
-                                  Text(gelenArticle.data.data[0].blogCategoryName,
-                                      style: GoogleFonts.raleway(fontSize: 10, color: Colors.brown.withOpacity(0.4))),
-                                  SizedBox(
-                                    width: 30,
-                                  ),
-                                  Icon(Icons.library_books, color: Colors.brown.withOpacity(0.4), size: 15),
-                                  Text(gelenArticle.data.data[0].articleRead,
-                                      style: GoogleFonts.raleway(fontSize: 10, color: Colors.brown.withOpacity(0.2))),
-                                ],
+                              Container(
+                                child: Row(
+                                  children: <Widget>[
+                                    Divider(),
+                                    SizedBox(
+                                      height: 10,
+                                    ),
+                                    Text(gelenArticle.data.data[0].blogCategoryName,
+                                        style: GoogleFonts.raleway(fontSize: 10, color: Colors.brown.withOpacity(0.4))),
+                                    SizedBox(
+                                      width: 30,
+                                    ),
+                                    Icon(Icons.library_books, color: Colors.brown.withOpacity(0.4), size: 15),
+                                    Text(gelenArticle.data.data[0].articleRead,
+                                        style: GoogleFonts.raleway(fontSize: 10, color: Colors.brown.withOpacity(0.2))),
+                                  ],
+                                ),
                               ),
-                            ),
-                          ],
-                        );
+                            ],
+                          );
+                        } else {
+                          return Center(
+                            child: Text("hata oluştu : \n" +
+                                gelenArticle.data.result.code +
+                                " : " +
+                                gelenArticle.data.result.desc),
+                          );
+                        }
                       } else {
                         return Text("hata oluştu");
                       }
