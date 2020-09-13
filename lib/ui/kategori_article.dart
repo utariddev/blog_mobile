@@ -25,22 +25,7 @@ class _KategoriArticleState extends State<KategoriArticle> {
 
   @override
   void initState() {
-//    KategoriArticleVerileriGetir2();
   }
-
-//  Future<Kategoriarticle> KategoriArticleVerileriGetir() async {
-//    var response = await http.post(
-//      url,
-//      headers: <String, String>{
-//        'Content-Type': 'application/json; charset=UTF-8',
-//      },
-//      body: jsonEncode(<String, String>{"categoryName": widget.kategoriarticleId}),
-//    );
-////    debugPrint(response.body);
-//    var decodedJson = json.decode(response.body);
-//    kategoriArticle = Kategoriarticle.fromJson(decodedJson);
-//    return kategoriArticle;
-//  }
 
   Future<Kategoriarticle> KategoriArticleVerileriGetir() async {
     debugPrint("KategoriArticleVerileriGetir2");
