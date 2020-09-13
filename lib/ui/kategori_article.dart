@@ -61,7 +61,7 @@ class _KategoriArticleState extends State<KategoriArticle> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          "Utarid",
+          "utarid",
           style: TextStyle(color: Colors.orange),
         ),
         backgroundColor: Colors.white,

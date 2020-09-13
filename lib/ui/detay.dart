@@ -122,7 +122,7 @@ class _DetayState extends State<Detay> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          "Utarid",
+          "utarid",
           style: TextStyle(color: Colors.orange),
         ),
         backgroundColor: Colors.white,
