@@ -15,13 +15,14 @@ class YanMenu extends StatefulWidget {
   YanMenu(this.css, this.futureKategori);
 
   @override
-  State<StatefulWidget> createState() => _YanMenu(css:css);
+  State<StatefulWidget> createState() => _YanMenu(css: css);
 }
 
 class _YanMenu extends State<YanMenu> {
   String url = "http://blogsrvr.herokuapp.com/rest/message/getCategories";
   Kategori kategori; //pokedex
   String css;
+
 //  Future<Kategori> futureKategori; //veri
 
   _YanMenu({this.css});

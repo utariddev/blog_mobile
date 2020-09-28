@@ -6,8 +6,8 @@ import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart';
-import 'package:webview_flutter/webview_flutter.dart';
 import 'package:utarid/constants.dart';
+import 'package:utarid/logger.dart';
 
 import '../models/article.dart';
 
@@ -43,7 +43,8 @@ class _DetayState extends State<Detay> {
   String url = Constants().getUrlForArticle();
   Article article;
   final dio = new Dio();
-  WebViewController _controller;
+
+  // WebViewController _controller;
   String css = "b";
   Future<Article> _futureArticle;
 
@@ -56,14 +57,14 @@ class _DetayState extends State<Detay> {
   }
 
   Future<Article> articleVerileriGetir() async {
-    debugPrint("articleVerileriGetir");
+    Logger().printLog("articleVerileriGetir");
 
     dio.options.headers = {"Content-Type": "application/json; charset=UTF-8"};
     final response = await dio.post(
       url,
       data: jsonEncode(<String, String>{"articleID": widget.articleId}),
     );
-    debugPrint("articleVerileriGetir widget.articleId : " + widget.articleId);
+    debugPrint("articleVerileriGetir widget.articleId : " + response.toString());
 
     var decodedJson = json.decode(response.toString());
     article = Article.fromJson(decodedJson);
