@@ -10,6 +10,7 @@ import 'package:flutter_pagewise/flutter_pagewise.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart';
+import 'package:utarid/logger.dart';
 
 import 'constants.dart';
 import 'models/kategori.dart';
@@ -59,7 +60,7 @@ class _MyHomePageState extends State<MyHomePage> {
         css = result;
       });
     });
-    sayfaYan = YanMenu(futureKategori);
+    sayfaYan = YanMenu(css, futureKategori);
   }
 
   void showAlertDialog(String message, String title) {
@@ -115,7 +116,6 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    //debugPrint("aaa css : " + css);
     return DefaultTabController(
       length: 4,
       child: Scaffold(
@@ -153,7 +153,6 @@ class PagewiseSliverListExample extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-//    debugPrint("PagewiseSliverListExample css : " + css);
     initializeDateFormatting('tr');
     return SafeArea(
       child: Material(
@@ -335,7 +334,7 @@ class BackendService {
 
 //    debugPrint("responseBody1 : " + responseBody2.data.toString());
     Map<String, dynamic> user = json.decode(responseBody2.data);
-    debugPrint("responseBody2 : " + user['data'].toString());
+    Logger().printLog("responseBody2 : " + user['data'].toString());
 
     List tList = new List();
     for (int i = 0; i < user['data'].length; i++) {

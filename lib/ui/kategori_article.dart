@@ -12,11 +12,12 @@ import 'detay.dart';
 
 class KategoriArticle extends StatefulWidget {
   var kategoriarticleId;
+  String css;
 
-  KategoriArticle({this.kategoriarticleId});
+  KategoriArticle({this.css, this.kategoriarticleId});
 
   @override
-  _KategoriArticleState createState() => _KategoriArticleState();
+  _KategoriArticleState createState() => _KategoriArticleState(css: css);
 }
 
 class _KategoriArticleState extends State<KategoriArticle> {
@@ -25,6 +26,9 @@ class _KategoriArticleState extends State<KategoriArticle> {
   Kategoriarticle kategoriArticle;
   Future<Kategoriarticle> _kategoriArticle;
   final dio = new Dio();
+  String css;
+
+  _KategoriArticleState({this.css});
 
   @override
   void initState() {
@@ -38,7 +42,7 @@ class _KategoriArticleState extends State<KategoriArticle> {
       url,
       data: jsonEncode(<String, String>{"categoryName": widget.kategoriarticleId}),
     );
-    debugPrint("KategoriArticleVerileriGetir2 - 1 : " + response.toString());
+    debugPrint("KategoriArticleVerileriGetir2 response : " + response.toString());
 //    debugPrint("KategoriArticleVerileriGetir2 - 2 : " + response.data.toString());
     var decodedJson = json.decode(response.toString());
     kategoriArticle = Kategoriarticle.fromJson(decodedJson);
@@ -65,7 +69,6 @@ class _KategoriArticleState extends State<KategoriArticle> {
               if (gelenKategoriArticle.connectionState == ConnectionState.waiting) {
                 return Center(child: CircularProgressIndicator());
               } else if (gelenKategoriArticle.connectionState == ConnectionState.done) {
-                debugPrint("articleVerileriGetir gelenKategoriArticle : " + gelenKategoriArticle.toString());
                 if (gelenKategoriArticle.data.result.code == "1") {
                   return ListView.builder(
 //                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 1),
@@ -78,7 +81,8 @@ class _KategoriArticleState extends State<KategoriArticle> {
                           child: InkWell(
                             onTap: () {
                               Navigator.of(context).push(MaterialPageRoute(
-                                  builder: (context) => Detay(articleId: gelenKategoriArticle.data.data[index].id)));
+                                  builder: (context) =>
+                                      Detay(css: css, articleId: gelenKategoriArticle.data.data[index].id)));
                             },
                             child: Material(
                               borderRadius: BorderRadius.circular(10),

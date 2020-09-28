@@ -10,17 +10,21 @@ import 'kategori_article.dart';
 
 class YanMenu extends StatefulWidget {
   final Future<Kategori> futureKategori;
+  final String css;
 
-  YanMenu(this.futureKategori);
+  YanMenu(this.css, this.futureKategori);
 
   @override
-  State<StatefulWidget> createState() => _YanMenu();
+  State<StatefulWidget> createState() => _YanMenu(css:css);
 }
 
 class _YanMenu extends State<YanMenu> {
   String url = "http://blogsrvr.herokuapp.com/rest/message/getCategories";
   Kategori kategori; //pokedex
+  String css;
 //  Future<Kategori> futureKategori; //veri
+
+  _YanMenu({this.css});
 
   @override
   void initState() {
@@ -88,6 +92,7 @@ class _YanMenu extends State<YanMenu> {
                                       onTap: () {
                                         Navigator.of(context).push(MaterialPageRoute(
                                             builder: (context) => KategoriArticle(
+                                                css: css,
                                                 kategoriarticleId: gelenKategori.data.data[index].blogCategoryName)));
                                       },
                                       child: Text(
