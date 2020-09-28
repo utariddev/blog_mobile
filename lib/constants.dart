@@ -25,6 +25,7 @@ class Constants {
   static const URL_GET_ARTICLES = BASE_URL + "getArticles";
   static const URL_GET_CONSTANT = BASE_URL + "getConstant";
   static const URL_GET_ARTICLE = BASE_URL + "getArticle";
+  static const URL_GET_CATEGORY_ARTICLE = BASE_URL + "getCategoryArticles";
 
   String getCurrentDateTime() {
     return DateFormat('yyyyMMddHHmmss').format(DateTime.now());
@@ -44,5 +45,9 @@ class Constants {
 
   String getUrlForConstants() {
     return URL_GET_CONSTANT;
+  }
+
+  String getUrlForCategoryArticles() {
+    return URL_GET_CATEGORY_ARTICLE;
   }
 }

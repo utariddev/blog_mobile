@@ -22,7 +22,7 @@ class KategoriArticle extends StatefulWidget {
 
 class _KategoriArticleState extends State<KategoriArticle> {
   // String url = "http://blogsrvr.herokuapp.com/rest/message/getCategoryArticles";
-  String url = Constants().getUrlForCategories();
+  String url = Constants().getUrlForCategoryArticles();
   Kategoriarticle kategoriArticle;
   Future<Kategoriarticle> _kategoriArticle;
   final dio = new Dio();
